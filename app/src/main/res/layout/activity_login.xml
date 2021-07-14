@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity" >
+    tools:context=".Models.LoginActivity" >
 
     <EditText
         android:id="@+id/etUsername"
@@ -55,6 +55,13 @@
         android:visibility="invisible"
         tools:visibility="visible" />
 
+    <Spinner
+        android:id="@+id/spGender"
+        android:layout_width="212dp"
+        android:layout_height="41dp"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
     <EditText
         android:id="@+id/etGender"
         android:layout_width="match_parent"
@@ -72,7 +79,7 @@
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="197dp"
+            android:layout_width="211dp"
             android:layout_height="wrap_content"
             android:text="Submit Changes"
             android:visibility="invisible"
@@ -80,9 +87,11 @@
 
         <Button
             android:id="@+id/btnSkip"
-            android:layout_width="213dp"
+            android:layout_width="199dp"
             android:layout_height="wrap_content"
-            android:text="Skip for now" />
+            android:text="Skip for now"
+            android:visibility="invisible"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>

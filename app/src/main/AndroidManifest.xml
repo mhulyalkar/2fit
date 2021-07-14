@@ -13,13 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".WorkoutActivity" />
+        <activity android:name=".Models.DetailActivity"></activity>
+        <activity android:name=".Models.WorkoutActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Models.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Models.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
