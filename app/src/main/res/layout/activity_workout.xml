@@ -7,18 +7,18 @@
     tools:context=".Models.WorkoutActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvExercise"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/tvTimer"
         android:layout_alignStart="@+id/imageView"
         android:layout_marginStart="0dp"
         android:layout_marginTop="100dp"
-        android:textSize="48sp"
+        android:textSize="24sp"
         tools:text="Sit Ups x10" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -40,36 +40,37 @@
         android:id="@+id/imageView2"
         android:layout_width="236dp"
         android:layout_height="229dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/tvExercise"
+        android:layout_alignStart="@+id/tvExercise"
         android:layout_marginStart="0dp"
         android:layout_marginTop="100dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvExerciseTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView2"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
+        android:visibility="invisible"
         tools:text="40 seconds" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_alignTop="@+id/tvExerciseTimer"
         android:layout_marginStart="150dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/textView3"
-        android:text="Button" />
+        android:layout_toEndOf="@+id/tvExerciseTimer"
+        android:text="Next" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="90dp"
-        android:layout_toEndOf="@+id/textView2"
+        android:layout_toEndOf="@+id/tvTimer"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 </RelativeLayout>

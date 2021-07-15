@@ -1,22 +1,25 @@
 package com.codepath.myapplication.Models;
 
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.codepath.myapplication.databinding.ActivityMainBinding;
+import com.codepath.myapplication.ui.main.SectionsPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import com.codepath.myapplication.ui.main.SectionsPagerAdapter;
-import com.codepath.myapplication.databinding.ActivityMainBinding;
 
 
 /**
  * Main activity with two tabbed fragments: Weekly Report and Workouts.
  */
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
     private static final String TAG = "MainActivity";
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,15 +1,14 @@
 package com.codepath.myapplication.Models;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.media.Rating;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Workout;
@@ -21,9 +20,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvWorkoutName;
     private RatingBar rbRatingDetails;
     private TextView tvTargetAreasDetails;
-    //TODO: Finish Adding imageView and Button functionality
+    //TODO: Finish Adding imageView
     private ImageView ivDetailPoster;
-    private Button btnDetailSubmit;
+    private Button btnDetailStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +32,18 @@ public class DetailActivity extends AppCompatActivity {
         tvWorkoutName = findViewById(R.id.tvWorkoutName);
         rbRatingDetails = findViewById(R.id.rbRatingDetails);
         tvTargetAreasDetails = findViewById(R.id.tvTargetAreasDetails);
-
         final Workout workout = getIntent().getParcelableExtra("workout");
         tvWorkoutName.setText(workout.getWorkoutName());
         rbRatingDetails.setRating((float) workout.getDifficulty());
         tvTargetAreasDetails.setText(workout.getTargetArea());
+        btnDetailStart = findViewById(R.id.btnDetailStart);
+        btnDetailStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent i = new Intent(DetailActivity.this, WorkoutActivity.class);
+                i.putExtra("workout1", workout);
+                startActivity(i);
+            }
+        });
     }
 }

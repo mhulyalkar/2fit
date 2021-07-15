@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.codepath.myapplication.R;
 import com.codepath.myapplication.Models.WeeklyReportFragment;
 import com.codepath.myapplication.Models.WorkoutFragment;
+import com.codepath.myapplication.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

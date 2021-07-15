@@ -16,19 +16,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder>{
+public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
     private final List<Workout> workouts;
     private final Context context;
     private final OnClickListener clickListener;
+
     public WorkoutAdapter(List<Workout> workouts, Context context, OnClickListener clickListener) {
         this.workouts = workouts;
         this.context = context;
         this.clickListener = clickListener;
     }
+
     @NotNull
     @Override
     public WorkoutAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.item_workout, parent,false);
+        final View view = LayoutInflater.from(context).inflate(R.layout.item_workout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,20 +39,25 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
         final Workout workout = workouts.get(position);
         holder.bind(workout);
     }
-    public interface OnClickListener {
-        void onItemClicked(int position);
-    }
+
     @Override
     public int getItemCount() {
         return workouts.size();
     }
+
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView etWorkoutItem;
+
         public ViewHolder(View itemView) {
             super(itemView);
             etWorkoutItem = itemView.findViewById(R.id.etWorkoutItem);
         }
+
         public void bind(Workout workout) {
             final String name = workout.getWorkoutName();
             etWorkoutItem.setText(name);

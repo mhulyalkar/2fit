@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutFragment extends Fragment {
+    private static final String TAG = "WorkoutFragment";
     private WorkoutAdapter nAdapter;
     private List<Workout> allWorkouts;
     private RecyclerView rvWorkouts;
-    private static final String TAG = "WorkoutFragment";
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -48,7 +48,7 @@ public class WorkoutFragment extends Fragment {
                 startActivity(i);
             }
         };
-        nAdapter = new WorkoutAdapter(allWorkouts,getActivity(), onClickListener);
+        nAdapter = new WorkoutAdapter(allWorkouts, getActivity(), onClickListener);
         rvWorkouts.setAdapter(nAdapter);
         rvWorkouts.setLayoutManager(new LinearLayoutManager(getActivity()));
         final ParseQuery<Workout> query = ParseQuery.getQuery(Workout.class);

@@ -19,12 +19,15 @@ public class Workout extends ParseObject {
     public String getWorkoutName() {
         return getString(KEY_NAME);
     }
+
     public String getTargetArea() {
         return getString(KEY_TARGET_AREAS);
     }
+
     public List<Object> getExercises() {
         return getList(KEY_EXERCISES);
     }
+
     public int getDifficulty() {
         return getInt(KEY_DIFFICULTY);
     }
