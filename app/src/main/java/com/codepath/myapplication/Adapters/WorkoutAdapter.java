@@ -47,6 +47,8 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     public interface OnClickListener {
         void onItemClicked(int position);
+
+        void onItemLongClicked(int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,6 +67,13 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     clickListener.onItemClicked(getAdapterPosition());
+                }
+            });
+            etWorkoutItem.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    clickListener.onItemLongClicked(getAdapterPosition());
+                    return true;
                 }
             });
         }

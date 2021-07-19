@@ -30,7 +30,6 @@ public class DetailActivity extends AppCompatActivity {
     private RatingBar rbRatingDetails;
     private TextView tvTargetAreasDetails;
     private Button btnDetailStart;
-    private HashMap<String, Exercise> exercisesMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final ParseQuery<Exercise> query = ParseQuery.getQuery(Exercise.class);
+                final HashMap<String, Exercise> exercisesMap = new HashMap<>();
                 query.addAscendingOrder("name");
                 query.findInBackground(new FindCallback<Exercise>() {
                     @Override
@@ -63,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
                             exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
                         }
                         final Intent i = new Intent(DetailActivity.this, WorkoutActivity.class);
-                        i.putExtra("workout1", workout);
+                        i.putExtra("workout", workout);
                         i.putExtra("exercises", exercisesMap);
                         startActivity(i);
                     }

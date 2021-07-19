@@ -41,19 +41,19 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView tvExercise;
     private TextView tvExerciseTimer;
     private ImageButton ibPause;
-    private CustomCountDownTimer timer;
-    private CustomCountDownTimer mTimer;
+    private CustomCountDownTimer mainTimer;
+    private CustomCountDownTimer exerciseTimer;
     private Button btnNext;
     private boolean isPaused = false;
     private int index;
 
     public void timerStart(long timeLengthMilli, int type) {
         if (type == TYPE_MAIN) {
-            timer = new CustomCountDownTimer(timeLengthMilli, 1000, type);
-            timer.start();
+            mainTimer = new CustomCountDownTimer(timeLengthMilli, 1000, type);
+            mainTimer.start();
         } else if (type == TYPE_MINI) {
-            mTimer = new CustomCountDownTimer(timeLengthMilli, 1000, type);
-            mTimer.start();
+            exerciseTimer = new CustomCountDownTimer(timeLengthMilli, 1000, type);
+            exerciseTimer.start();
         } else {
             Log.e(TAG, "Timer type not recognized in timerStart(), type: " + type);
             Toast.makeText(WorkoutActivity.this, "Timer did not load properly", Toast.LENGTH_SHORT).show();
@@ -61,16 +61,16 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     public void timerPause() {
-        timer.cancel();
-        if (mTimer != null) {
-            mTimer.cancel();
+        mainTimer.cancel();
+        if (exerciseTimer != null) {
+            exerciseTimer.cancel();
         }
     }
 
     public void timerResume() {
-        timerStart(timer.getMilliLeft(), timer.getType());
-        if (mTimer != null) {
-            timerStart(mTimer.getMilliLeft(), timer.getType());
+        timerStart(mainTimer.getMilliLeft(), mainTimer.getType());
+        if (exerciseTimer != null) {
+            timerStart(exerciseTimer.getMilliLeft(), exerciseTimer.getType());
         }
     }
 
@@ -160,7 +160,7 @@ public class WorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        workout = getIntent().getParcelableExtra("workout1");
+        workout = getIntent().getParcelableExtra("workout");
         exercisesMap = (Map<String, Exercise>) getIntent().getSerializableExtra("exercises");
         workoutPlan = generateWorkout();
         workoutPlan.add(index, exercisesMap.get("Jumping Jacks"));
@@ -185,8 +185,8 @@ public class WorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 index++;
-                if (mTimer.getMilliLeft() > 0) {
-                    mTimer.onFinish();
+                if (exerciseTimer.getMilliLeft() > 0) {
+                    exerciseTimer.onFinish();
                 }
                 load();
             }
