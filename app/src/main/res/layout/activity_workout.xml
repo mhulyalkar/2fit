@@ -73,4 +73,11 @@
         android:layout_marginStart="90dp"
         android:layout_toEndOf="@+id/tvTimer"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+    <ImageButton
+        android:id="@+id/ibPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_media_pause" />
+
 </RelativeLayout>

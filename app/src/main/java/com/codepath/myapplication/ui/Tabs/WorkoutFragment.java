@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Models;
+package com.codepath.myapplication.ui.Tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.myapplication.Adapters.WorkoutAdapter;
+import com.codepath.myapplication.Models.DetailActivity;
+import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.Workout;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

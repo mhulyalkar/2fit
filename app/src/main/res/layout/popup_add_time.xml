@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customborder"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="Add Time:"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnOneMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+ 1 minute" />
+
+    <Button
+        android:id="@+id/btnTwoMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+ 2 Minutes" />
+
+    <Button
+        android:id="@+id/btnFiveMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+5 Minutes" />
+
+    <Button
+        android:id="@+id/btnTenMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+10 Minutes" />
+
+    <Button
+        android:id="@+id/btnCustomMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Custum" />
+
+    <EditText
+        android:id="@+id/etCustomMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnEndWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="End Workout" />
+</LinearLayout>

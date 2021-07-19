@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.Workout;
 
 import org.jetbrains.annotations.NotNull;
 

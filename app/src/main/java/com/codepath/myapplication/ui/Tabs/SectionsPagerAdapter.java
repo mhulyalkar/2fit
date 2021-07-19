@@ -1,4 +1,4 @@
-package com.codepath.myapplication.ui.main;
+package com.codepath.myapplication.ui.Tabs;
 
 import android.content.Context;
 
@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.codepath.myapplication.Models.WeeklyReportFragment;
-import com.codepath.myapplication.Models.WorkoutFragment;
 import com.codepath.myapplication.R;
 
 /**
@@ -29,7 +27,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
+        final Fragment fragment;
         switch (position) {
             case 0:
                 fragment = new WeeklyReportFragment();
@@ -37,6 +35,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new WorkoutFragment();
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + position);
         }
         return fragment;
     }
@@ -49,7 +49,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return TAB_TITLES.length;
     }
 }

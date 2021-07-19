@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Models;
+package com.codepath.myapplication.ui.Tabs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.codepath.myapplication.R;
 
-import org.jetbrains.annotations.NotNull;
-
+/**
+ * Shows data on user's activity for the past week.
+ */
 public class WeeklyReportFragment extends Fragment {
     @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_weekly_report, container, false);
     }
 }
