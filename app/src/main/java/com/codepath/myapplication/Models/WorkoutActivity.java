@@ -87,46 +87,15 @@ public class WorkoutActivity extends AppCompatActivity {
         popupWindow.showAtLocation(pView, Gravity.CENTER, 0, 0);
         final Button btnOneMin, btnTwoMin, btnFiveMin, btnTenMin, btnCustomMin, btnEndWorkout;
         btnOneMin = pView.findViewById(R.id.btnOneMin);
-        btnOneMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerStart(60000, TYPE_MAIN);
-                popupWindow.dismiss();
-            }
-        });
+        btnOneMin.setOnClickListener(new CustomOnClickListener(1 , popupWindow));
         btnTwoMin = pView.findViewById(R.id.btnTwoMin);
-        btnTwoMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerStart(2 * 60000, TYPE_MAIN);
-                popupWindow.dismiss();
-            }
-        });
+        btnTwoMin.setOnClickListener(new CustomOnClickListener(2 , popupWindow));
         btnFiveMin = pView.findViewById(R.id.btnFiveMin);
-        btnFiveMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerStart(5 * 60000, TYPE_MAIN);
-                popupWindow.dismiss();
-
-            }
-        });
+        btnFiveMin.setOnClickListener(new CustomOnClickListener(5 , popupWindow));
         btnTenMin = pView.findViewById(R.id.btnTenMin);
-        btnTenMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerStart(10 * 60000, TYPE_MAIN);
-                popupWindow.dismiss();
-            }
-        });
+        btnTenMin.setOnClickListener(new CustomOnClickListener(10 , popupWindow));
         btnCustomMin = pView.findViewById(R.id.btnCustomMin);
-        btnCustomMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerStart(60000, TYPE_MAIN);
-                popupWindow.dismiss();
-            }
-        });
+        btnCustomMin.setOnClickListener(new CustomOnClickListener(20 , popupWindow));
         btnEndWorkout = pView.findViewById(R.id.btnEndWorkout);
         btnEndWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +203,20 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
+    public class CustomOnClickListener implements View.OnClickListener {
+        private int min;
+        private PopupWindow popupWindow;
 
+        public CustomOnClickListener(int min, PopupWindow popupWindow) {
+            this.min = min;
+            this.popupWindow = popupWindow;
+        }
+        @Override
+        public void onClick(View v) {
+            timerStart(min * 60000, TYPE_MAIN);
+            popupWindow.dismiss();
+        }
+    }
     /**
      * Custom timer implementation with 2 timer types: TYPE_MAIN, TYPE_MINI.
      * TYPE_MAIN is the main timer which shows how long the user has been working out.
