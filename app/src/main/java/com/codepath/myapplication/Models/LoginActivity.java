@@ -12,17 +12,27 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codepath.myapplication.ParseObjects.Exercise;
+import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.R;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Where user can log in or sign up.
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+    private static ParseUser currentUser;
+    private static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private EditText etUsername;
     private EditText etPassword;
     private Button btnSignUp;
@@ -71,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Issue with logging in", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                currentUser = user;
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             }
@@ -79,24 +90,60 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signUp(String username, String password) {
         final ParseUser user = new ParseUser();
-
+        final WeeklyReport weeklyReport = new WeeklyReport();
         user.setUsername(username);
         user.setPassword(password);
-
-        user.signUpInBackground(new SignUpCallback() {
+        user.put("weeklyReport", weeklyReport);
+        weeklyReport.saveInBackground(new SaveCallback() {
+            @Override
             public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(LoginActivity.this, "Sign up was successful", Toast.LENGTH_SHORT).show();
-                    loginUser(username, password);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Sign up was not successful", Toast.LENGTH_SHORT).show();
+                if (e != null) {
+                    Log.e(TAG ,"Error While saving Weekly Report" + e);
+                    Toast.makeText(LoginActivity.this, "Error While saving Weekly Report"
+                            + e, Toast.LENGTH_SHORT).show();
                 }
+                user.signUpInBackground(new SignUpCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            currentUser = user;
+                            weeklyReport.setUserId(user.getObjectId());
+                            Toast.makeText(LoginActivity.this, "Sign up was successful", Toast.LENGTH_SHORT).show();
+                            loginUser(username, password);
+                        } else {
+                            Log.e(TAG, "Sign up was not successful", e);
+                            Toast.makeText(LoginActivity.this, "Sign up was not successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
     }
 
     private void goMainActivity() {
-        final Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
+        final ParseQuery<Exercise> query = ParseQuery.getQuery(Exercise.class);
+        query.addAscendingOrder("name");
+        query.findInBackground(new FindCallback<Exercise>() {
+            @Override
+            public void done(List<Exercise> exercises, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting exercises", e);
+                    Toast.makeText(LoginActivity.this, "Issue with getting exercises", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                for (int i = 0; i < exercises.size(); i++) {
+                    final Exercise currentExercise = exercises.get(i);
+                    exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
+                }
+                final Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    public static ParseUser getCurrentUser() {
+        return currentUser;
+    }
+    public static HashMap<String, Exercise> getExercisesMap() {
+        return exercisesMap;
     }
 }

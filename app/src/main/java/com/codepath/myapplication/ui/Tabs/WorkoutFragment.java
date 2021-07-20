@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codepath.myapplication.Adapters.WorkoutAdapter;
 import com.codepath.myapplication.Models.DetailActivity;
 import com.codepath.myapplication.Models.WorkoutActivity;
-import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
 import com.parse.FindCallback;
@@ -27,7 +26,6 @@ import com.parse.ParseQuery;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,29 +49,10 @@ public class WorkoutFragment extends Fragment {
             @Override
             public void onItemLongClicked(int position) {
                 //Skips the detail page
-                final ParseQuery<Exercise> query = ParseQuery.getQuery(Exercise.class);
-                final HashMap<String, Exercise> exercisesMap = new HashMap<>();
-                query.addAscendingOrder("name");
-                query.findInBackground(new FindCallback<Exercise>() {
-                    @Override
-                    public void done(List<Exercise> exercises, ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Issue with getting exercises", e);
-                            Toast.makeText(getActivity(), "Issue with getting exercises", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        for (int i = 0; i < exercises.size(); i++) {
-                            final Exercise currentExercise = exercises.get(i);
-                            exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
-                        }
-                        final Intent i = new Intent(getActivity(), WorkoutActivity.class);
-                        i.putExtra("workout", allWorkouts.get(position));
-                        i.putExtra("exercises", exercisesMap);
-                        startActivity(i);
-                    }
-                });
+                final Intent i = new Intent(getActivity(), WorkoutActivity.class);
+                i.putExtra("workout", allWorkouts.get(position));
+                startActivity(i);
             }
-
             @Override
             public void onItemClicked(int position) {
                 final Intent i = new Intent(getActivity(), DetailActivity.class);

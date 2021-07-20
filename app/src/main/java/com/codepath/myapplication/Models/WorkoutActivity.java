@@ -35,7 +35,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private static final String TAG = "WorkoutActivity";
 
     private List<Exercise> workoutPlan;
-    private Map<String, Exercise> exercisesMap = new HashMap<>();
+    private Map<String, Exercise> exercisesMap;
     private Workout workout;
     private TextView tvTimer;
     private TextView tvExercise;
@@ -130,10 +130,9 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
         workout = getIntent().getParcelableExtra("workout");
-        exercisesMap = (Map<String, Exercise>) getIntent().getSerializableExtra("exercises");
+        exercisesMap = LoginActivity.getExercisesMap();
         workoutPlan = generateWorkout();
         workoutPlan.add(index, exercisesMap.get("Jumping Jacks"));
-
         ibPause = findViewById(R.id.ibPause);
         ibPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +153,7 @@ public class WorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 index++;
-                if (exerciseTimer.getMilliLeft() > 0) {
+                if (exerciseTimer != null && exerciseTimer.getMilliLeft() > 0) {
                     exerciseTimer.onFinish();
                 }
                 load();
@@ -256,7 +255,11 @@ public class WorkoutActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+            //Finishes exercise timer if main timer runs out
             if (type == TYPE_MAIN) {
+                if (exerciseTimer != null && exerciseTimer.getMilliLeft() > 0) {
+                    exerciseTimer.onFinish();
+                }
                 addTimePrompt();
             }
             if (type == TYPE_MINI) {

@@ -17,14 +17,12 @@ import com.google.android.material.tabs.TabLayout;
  * Main activity with two tabbed fragments: Weekly Report and Workouts.
  */
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         final ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
