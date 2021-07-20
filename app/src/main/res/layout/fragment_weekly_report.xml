@@ -12,27 +12,27 @@
         android:text="WeeklyReport" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_marginTop="0dp"
-        android:text="Calories Burned: " />
+        tools:text="Calories Burned: " />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvDaysInARow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/tvCalories"
         android:layout_marginTop="0dp"
-        android:text="Days in a row: " />
+        tools:text="Days in a row:" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvTimeSpent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/tvDaysInARow"
         android:layout_marginTop="0dp"
-        android:text="Time spent: " />
+        tools:text="Time spent: " />
 
 </RelativeLayout>

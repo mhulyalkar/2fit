@@ -5,14 +5,10 @@ import com.parse.ParseObject;
 
 @ParseClassName("WeeklyReport")
 public class WeeklyReport extends ParseObject {
-    private static final String KEY_USER = "userId";
     private static final String KEY_DAYS_IN_A_ROW = "daysInARow";
     private static final String KEY_WEEKLY_CALORIES_BURNED = "weeklyCaloriesBurned";
     private static final String KEY_DURATION = "duration";
 
-    public String getUserId() {
-        return getString(KEY_USER);
-    }
     public int getDaysInARow() {
         return getInt(KEY_DAYS_IN_A_ROW);
     }
@@ -21,9 +17,6 @@ public class WeeklyReport extends ParseObject {
     }
     public int getDuration() {
         return getInt(KEY_DURATION);
-    }
-    public void setUserId(String userId) {
-        put(KEY_USER, userId);
     }
     public void setDaysInARow(int daysInARow) {
         put(KEY_DAYS_IN_A_ROW, daysInARow);

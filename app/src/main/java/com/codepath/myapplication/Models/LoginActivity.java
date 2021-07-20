@@ -16,8 +16,10 @@ import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.R;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -32,6 +34,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static ParseUser currentUser;
+    private static ParseObject currentWeeklyReport;
     private static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private EditText etUsername;
     private EditText etPassword;
@@ -82,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 currentUser = user;
+                queryWeeklyReport();
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             }
@@ -99,14 +103,13 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e != null) {
                     Log.e(TAG ,"Error While saving Weekly Report" + e);
-                    Toast.makeText(LoginActivity.this, "Error While saving Weekly Report"
-                            + e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Error While saving Weekly Report", Toast.LENGTH_SHORT).show();
                 }
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
                             currentUser = user;
-                            weeklyReport.setUserId(user.getObjectId());
+                            queryWeeklyReport();
                             Toast.makeText(LoginActivity.this, "Sign up was successful", Toast.LENGTH_SHORT).show();
                             loginUser(username, password);
                         } else {
@@ -140,10 +143,26 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void queryWeeklyReport() {
+        final ParseQuery<WeeklyReport> query = ParseQuery.getQuery(WeeklyReport.class);
+        query.getInBackground(currentUser.getParseObject("weeklyReport").getObjectId(), new GetCallback<WeeklyReport>() {
+            public void done(WeeklyReport item, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting weeklyReport", e);
+                    Toast.makeText(LoginActivity.this, "Issue with getting weekly report", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentWeeklyReport = item;
+            }
+        });
+    }
     public static ParseUser getCurrentUser() {
         return currentUser;
     }
     public static HashMap<String, Exercise> getExercisesMap() {
         return exercisesMap;
+    }
+    public static ParseObject getCurrentWeeklyReport() {
+        return currentWeeklyReport;
     }
 }
