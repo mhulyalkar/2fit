@@ -50,6 +50,8 @@ public class WorkoutFragment extends Fragment {
             public void onItemLongClicked(int position) {
                 //Skips the detail page
                 final Intent i = new Intent(getActivity(), WorkoutActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // these two lines makes sure the Back button won't work
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("workout", allWorkouts.get(position));
                 startActivity(i);
             }

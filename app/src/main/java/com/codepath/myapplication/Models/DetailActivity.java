@@ -38,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent i = new Intent(DetailActivity.this, WorkoutActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // these two lines makes sure the Back button won't work
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("workout", workout);
                 startActivity(i);
             }
