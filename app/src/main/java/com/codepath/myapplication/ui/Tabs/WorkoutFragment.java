@@ -53,6 +53,7 @@ public class WorkoutFragment extends Fragment {
                 i.putExtra("workout", allWorkouts.get(position));
                 startActivity(i);
             }
+
             @Override
             public void onItemClicked(int position) {
                 final Intent i = new Intent(getActivity(), DetailActivity.class);

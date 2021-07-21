@@ -88,18 +88,19 @@ public class WorkoutActivity extends AppCompatActivity {
         final int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         final boolean focusable = false;
         final PopupWindow popupWindow = new PopupWindow(pView, width, height, focusable);
+        popupWindow.setAnimationStyle(R.style.popup_window_animation);
         popupWindow.showAtLocation(pView, Gravity.CENTER, 0, 0);
         final Button btnOneMin, btnTwoMin, btnFiveMin, btnTenMin, btnCustomMin, btnEndWorkout;
         btnOneMin = pView.findViewById(R.id.btnOneMin);
-        btnOneMin.setOnClickListener(new CustomOnClickListener(1 , popupWindow));
+        btnOneMin.setOnClickListener(new CustomOnClickListener(1, popupWindow));
         btnTwoMin = pView.findViewById(R.id.btnTwoMin);
-        btnTwoMin.setOnClickListener(new CustomOnClickListener(2 , popupWindow));
+        btnTwoMin.setOnClickListener(new CustomOnClickListener(2, popupWindow));
         btnFiveMin = pView.findViewById(R.id.btnFiveMin);
-        btnFiveMin.setOnClickListener(new CustomOnClickListener(5 , popupWindow));
+        btnFiveMin.setOnClickListener(new CustomOnClickListener(5, popupWindow));
         btnTenMin = pView.findViewById(R.id.btnTenMin);
-        btnTenMin.setOnClickListener(new CustomOnClickListener(10 , popupWindow));
+        btnTenMin.setOnClickListener(new CustomOnClickListener(10, popupWindow));
         btnCustomMin = pView.findViewById(R.id.btnCustomMin);
-        btnCustomMin.setOnClickListener(new CustomOnClickListener(20 , popupWindow));
+        btnCustomMin.setOnClickListener(new CustomOnClickListener(20, popupWindow));
         btnEndWorkout = pView.findViewById(R.id.btnEndWorkout);
         btnEndWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,7 @@ public class WorkoutActivity extends AppCompatActivity {
                 } else {
                     currentWeeklyReport.setDaysInARow(1);
                 }
-                Log.i(TAG, totalExerciseTimeInMinutes+"");
+                Log.i(TAG, totalExerciseTimeInMinutes + "");
                 currentWeeklyReport.updateLastWorkoutDate();
                 currentWeeklyReport.setDuration(currentWeeklyReport.getDuration() + totalExerciseTimeInMinutes);
                 final long calsPerMin;
@@ -244,6 +245,7 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
+
     public class CustomOnClickListener implements View.OnClickListener {
         private int min;
         private PopupWindow popupWindow;
@@ -252,6 +254,7 @@ public class WorkoutActivity extends AppCompatActivity {
             this.min = min;
             this.popupWindow = popupWindow;
         }
+
         @Override
         public void onClick(View v) {
             timerStart(min * 60000, TYPE_MAIN);
@@ -259,6 +262,7 @@ public class WorkoutActivity extends AppCompatActivity {
             popupWindow.dismiss();
         }
     }
+
     /**
      * Custom timer implementation with 2 timer types: TYPE_MAIN, TYPE_MINI.
      * TYPE_MAIN is the main timer which shows how long the user has been working out.

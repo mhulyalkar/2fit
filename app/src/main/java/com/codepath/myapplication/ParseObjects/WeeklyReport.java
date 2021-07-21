@@ -15,24 +15,31 @@ public class WeeklyReport extends ParseObject {
     public int getDaysInARow() {
         return getInt(KEY_DAYS_IN_A_ROW);
     }
-    public int getWeeklyCaloriesBurned() {
-        return getInt(KEY_WEEKLY_CALORIES_BURNED);
-    }
-    public int getDuration() {
-        return getInt(KEY_DURATION);
-    }
-    public Date getLastWorkoutDate() {
-        return getDate(KEY_LAST_WORKOUT_DATE);
-    }
+
     public void setDaysInARow(int daysInARow) {
         put(KEY_DAYS_IN_A_ROW, daysInARow);
     }
+
+    public int getWeeklyCaloriesBurned() {
+        return getInt(KEY_WEEKLY_CALORIES_BURNED);
+    }
+
     public void setWeeklyCaloriesBurned(int weeklyCaloriesBurned) {
         put(KEY_WEEKLY_CALORIES_BURNED, weeklyCaloriesBurned);
     }
+
+    public int getDuration() {
+        return getInt(KEY_DURATION);
+    }
+
     public void setDuration(int duration) {
         put(KEY_DURATION, duration);
     }
+
+    public Date getLastWorkoutDate() {
+        return getDate(KEY_LAST_WORKOUT_DATE);
+    }
+
     public void updateLastWorkoutDate() {
         put(KEY_LAST_WORKOUT_DATE, new Date());
     }
