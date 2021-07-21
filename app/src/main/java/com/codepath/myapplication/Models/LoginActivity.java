@@ -19,7 +19,6 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -34,7 +33,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static ParseUser currentUser;
-    private static ParseObject currentWeeklyReport;
+    private static WeeklyReport currentWeeklyReport;
     private static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private EditText etUsername;
     private EditText etPassword;
@@ -162,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     public static HashMap<String, Exercise> getExercisesMap() {
         return exercisesMap;
     }
-    public static ParseObject getCurrentWeeklyReport() {
+    public static WeeklyReport getCurrentWeeklyReport() {
         return currentWeeklyReport;
     }
 }

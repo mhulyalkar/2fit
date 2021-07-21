@@ -18,11 +18,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codepath.myapplication.ParseObjects.Exercise;
+import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +49,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private Button btnNext;
     private boolean isPaused = false;
     private int index;
+    private int totalExerciseTimeInMinutes = 0;
 
     public void timerStart(long timeLengthMilli, int type) {
         if (type == TYPE_MAIN) {
@@ -100,8 +104,45 @@ public class WorkoutActivity extends AppCompatActivity {
         btnEndWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
-                startActivity(i);
+                final WeeklyReport currentWeeklyReport = LoginActivity.getCurrentWeeklyReport();
+                final Date currentDate = new Date();
+                final Date lastDate = currentWeeklyReport.getLastWorkoutDate();
+                if (lastDate != null) {
+                    final Date nextDate = new Date(lastDate.getYear(), lastDate.getMonth(), lastDate.getDate() + 1);
+                    if (nextDate.getYear() == currentDate.getYear()
+                            && nextDate.getMonth() == currentDate.getMonth()
+                            && nextDate.getDate() == currentDate.getDate()) {
+                        currentWeeklyReport.setDaysInARow(currentWeeklyReport.getDaysInARow() + 1);
+                    } else if (currentDate.compareTo(nextDate) > 0) {
+                        currentWeeklyReport.setDaysInARow(1);
+                    }
+                } else {
+                    currentWeeklyReport.setDaysInARow(1);
+                }
+                Log.i(TAG, totalExerciseTimeInMinutes+"");
+                currentWeeklyReport.updateLastWorkoutDate();
+                currentWeeklyReport.setDuration(currentWeeklyReport.getDuration() + totalExerciseTimeInMinutes);
+                final long calsPerMin;
+                if (workout.getDifficulty() == 1 || workout.getDifficulty() == 2) {
+                    calsPerMin = 162 / 60;
+                } else if (workout.getDifficulty() == 3 || workout.getDifficulty() == 4) {
+                    calsPerMin = ((216 + 162) / 2) / 60;
+                } else {
+                    calsPerMin = 216 / 60;
+                }
+                currentWeeklyReport.setWeeklyCaloriesBurned(currentWeeklyReport.getDuration() + ((int) (calsPerMin * totalExerciseTimeInMinutes)));
+                currentWeeklyReport.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issue with updating WeeklyReport", e);
+                            Toast.makeText(WorkoutActivity.this, "Issue with updating WeeklyReport", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                });
             }
         });
     }
@@ -165,6 +206,7 @@ public class WorkoutActivity extends AppCompatActivity {
         tvExercise.setText("" + workoutPlan.get(0));
         load();
         timerStart(3 * 1000, TYPE_MAIN);
+        totalExerciseTimeInMinutes += 2;
     }
 
     public void load() {
@@ -213,6 +255,7 @@ public class WorkoutActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             timerStart(min * 60000, TYPE_MAIN);
+            totalExerciseTimeInMinutes += min;
             popupWindow.dismiss();
         }
     }
