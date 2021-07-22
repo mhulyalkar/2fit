@@ -120,7 +120,6 @@ public class WorkoutActivity extends AppCompatActivity {
                 } else {
                     currentWeeklyReport.setDaysInARow(1);
                 }
-                Log.i(TAG, totalExerciseTimeInMinutes + "");
                 currentWeeklyReport.updateLastWorkoutDate();
                 currentWeeklyReport.setDuration(currentWeeklyReport.getDuration() + totalExerciseTimeInMinutes);
                 final long calsPerMin;
@@ -141,6 +140,7 @@ public class WorkoutActivity extends AppCompatActivity {
                             return;
                         }
                         final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+                        popupWindow.dismiss();
                         startActivity(i);
                     }
                 });
