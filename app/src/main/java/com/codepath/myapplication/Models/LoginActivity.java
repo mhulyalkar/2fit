@@ -24,6 +24,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -97,6 +98,33 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 currentUser = user;
                 queryWeeklyReport();
+                if (currentWeeklyReport != null) {
+                    //reset WeeklyReport if its a new week
+                    final Date lastWorkoutDate = currentWeeklyReport.getLastWorkoutDate();
+                    final Date nextMondayDate = new Date(lastWorkoutDate.getYear(),
+                            lastWorkoutDate.getMonth(),
+                            currentWeeklyReport.getLastWorkoutDate().getDate()
+                                    + (7 - currentWeeklyReport.getLastWorkoutDate().getDay()));
+                    if (nextMondayDate.compareTo(new Date()) <= 0) {
+                        currentWeeklyReport.setWeeklyCaloriesBurned(0);
+                        currentWeeklyReport.setDuration(0);
+                        currentWeeklyReport.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    Log.e(TAG, "Issue with resetting WeeklyReport", e);
+                                    Toast.makeText(LoginActivity.this, "Issue with resetting WeeklyReport", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                goMainActivity();
+                                Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        goMainActivity();
+                        Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             }
