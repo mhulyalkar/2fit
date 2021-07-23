@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Models;
+package com.codepath.twofitapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codepath.myapplication.ParseObjects.Exercise;
-import com.codepath.myapplication.ParseObjects.WeeklyReport;
-import com.codepath.myapplication.R;
+import com.codepath.twofitapp.ParseObjects.Exercise;
+import com.codepath.twofitapp.ParseObjects.WeeklyReport;
+import com.codepath.twofitapp.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static ParseUser currentUser;
     private static WeeklyReport currentWeeklyReport;
-    private static HashMap<String, Exercise> exercisesMap = new HashMap<>();
+    private final static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private EditText etUsername;
     private EditText etPassword;
     private Button btnSignUp;
@@ -98,35 +98,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 currentUser = user;
                 queryWeeklyReport();
-                if (currentWeeklyReport != null) {
-                    //reset WeeklyReport if its a new week
-                    final Date lastWorkoutDate = currentWeeklyReport.getLastWorkoutDate();
-                    final Date nextMondayDate = new Date(lastWorkoutDate.getYear(),
-                            lastWorkoutDate.getMonth(),
-                            currentWeeklyReport.getLastWorkoutDate().getDate()
-                                    + (7 - currentWeeklyReport.getLastWorkoutDate().getDay()));
-                    if (nextMondayDate.compareTo(new Date()) <= 0) {
-                        currentWeeklyReport.setWeeklyCaloriesBurned(0);
-                        currentWeeklyReport.setDuration(0);
-                        currentWeeklyReport.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                if (e != null) {
-                                    Log.e(TAG, "Issue with resetting WeeklyReport", e);
-                                    Toast.makeText(LoginActivity.this, "Issue with resetting WeeklyReport", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                goMainActivity();
-                                Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        goMainActivity();
-                        Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,6 +105,9 @@ public class LoginActivity extends AppCompatActivity {
     private void signUp(String username, String password) {
         final ParseUser user = new ParseUser();
         final WeeklyReport weeklyReport = new WeeklyReport();
+        weeklyReport.setDuration(0);
+        weeklyReport.setDaysInARow(0);
+        weeklyReport.setWeeklyCaloriesBurned(0);
         user.setUsername(username);
         user.setPassword(password);
         user.put("weeklyReport", weeklyReport);
@@ -148,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             currentUser = user;
-                            queryWeeklyReport();
                             Toast.makeText(LoginActivity.this, "Sign up was successful", Toast.LENGTH_SHORT).show();
                             loginUser(username, password);
                         } else {
@@ -182,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void queryWeeklyReport() {
+    private void queryWeeklyReport() {
         final ParseQuery<WeeklyReport> query = ParseQuery.getQuery(WeeklyReport.class);
         query.getInBackground(currentUser.getParseObject("weeklyReport").getObjectId(), new GetCallback<WeeklyReport>() {
             public void done(WeeklyReport item, ParseException e) {
@@ -192,6 +165,32 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 currentWeeklyReport = item;
+                if (currentWeeklyReport.getLastWorkoutDate() != null) {
+                    //reset WeeklyReport if its a new week
+                    final Date lastWorkoutDate = currentWeeklyReport.getLastWorkoutDate();
+                    final Date nextMondayDate = new Date(lastWorkoutDate.getYear(),
+                            lastWorkoutDate.getMonth(),
+                            currentWeeklyReport.getLastWorkoutDate().getDate()
+                                    + (7 - currentWeeklyReport.getLastWorkoutDate().getDay()));
+                    if (nextMondayDate.compareTo(new Date()) <= 0) {
+                        currentWeeklyReport.setWeeklyCaloriesBurned(0);
+                        currentWeeklyReport.setDuration(0);
+                        currentWeeklyReport.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    Log.e(TAG, "Issue with resetting WeeklyReport", e);
+                                    Toast.makeText(LoginActivity.this, "Issue with resetting WeeklyReport", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                goMainActivity();
+                                Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                goMainActivity();
+                Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             }
         });
     }

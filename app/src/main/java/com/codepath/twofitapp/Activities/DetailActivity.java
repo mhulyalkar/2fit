@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Models;
+package com.codepath.twofitapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codepath.myapplication.ParseObjects.Workout;
-import com.codepath.myapplication.R;
+import com.codepath.twofitapp.ParseObjects.Workout;
+import com.codepath.twofitapp.R;
 
 /**
  * Shows the details of a selected workout.
@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         tvWorkoutName = findViewById(R.id.tvWorkoutName);
-        rbRatingDetails = findViewById(R.id.rbRatingDetails);
+        rbRatingDetails = findViewById(R.id.rbDifficultyRating);
         tvTargetAreasDetails = findViewById(R.id.tvTargetAreasDetails);
         final Workout workout = getIntent().getParcelableExtra("workout");
         tvWorkoutName.setText(workout.getWorkoutName());

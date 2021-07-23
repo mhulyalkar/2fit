@@ -5,33 +5,33 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvWeeklyReportTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WeeklyReport" />
+        android:text="@string/weeklyreport" />
 
     <TextView
         android:id="@+id/tvCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@id/tvWeeklyReportTitle"
         android:layout_marginTop="0dp"
-        tools:text="Calories Burned: " />
+        tools:text="@string/caloriesBurnedTitle" />
 
     <TextView
         android:id="@+id/tvDaysInARow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCalories"
+        android:layout_below="@id/tvCalories"
         android:layout_marginTop="0dp"
-        tools:text="Days in a row:" />
+        tools:text="@string/daysInARowTitle" />
 
     <TextView
         android:id="@+id/tvTimeSpent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDaysInARow"
+        android:layout_below="@id/tvDaysInARow"
         android:layout_marginTop="0dp"
-        tools:text="Time spent: " />
+        tools:text="@string/timeSpentTitle" />
 
 </RelativeLayout>
