@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/customborder"
+    android:background="@drawable/custom_border"
     android:orientation="vertical">
 
     <TextView
@@ -11,38 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center"
-        android:text="Add Time:"
+        android:text="@string/add_time"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnOneMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+ 1 minute" />
+        android:text="@string/_1_minute" />
 
     <Button
         android:id="@+id/btnTwoMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+ 2 Minutes" />
+        android:text="@string/_2_minutes" />
 
     <Button
         android:id="@+id/btnFiveMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+5 Minutes" />
+        android:text="@string/_5_minutes" />
 
     <Button
         android:id="@+id/btnTenMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+10 Minutes" />
+        android:text="@string/_10_minutes" />
 
     <Button
         android:id="@+id/btnCustomMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Custom"
+        android:text="@string/custom"
         android:visibility="invisible"
         tools:visibility="visible" />
 
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Number"
+        android:hint="@string/number"
         android:inputType="textPersonName"
         android:visibility="invisible"
         tools:visibility="visible" />
@@ -60,5 +60,5 @@
         android:id="@+id/btnEndWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="End Workout" />
+        android:text="@string/end_workout" />
 </LinearLayout>

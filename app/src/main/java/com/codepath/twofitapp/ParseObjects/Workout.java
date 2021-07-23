@@ -1,4 +1,4 @@
-package com.codepath.myapplication.ParseObjects;
+package com.codepath.twofitapp.ParseObjects;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;

@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Models.LoginActivity">
+    tools:context="com.codepath.twofitapp.Activities.LoginActivity">
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName" />
 
     <EditText
@@ -19,20 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In" />
+        android:text="@string/log_in" />
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up" />
+        android:text="@string/sign_up" />
 
     <EditText
         android:id="@+id/etHeight"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Height (in)"
+        android:text="@string/height_in"
         android:visibility="invisible"
         tools:visibility="visible" />
 
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Weight (lbs)"
+        android:text="@string/weight_lbs"
         android:visibility="invisible"
         tools:visibility="visible" />
 
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Gender"
+        android:text="@string/gender"
         android:visibility="invisible"
         tools:visibility="visible" />
 
@@ -80,7 +80,7 @@
             android:id="@+id/btnSubmit"
             android:layout_width="211dp"
             android:layout_height="wrap_content"
-            android:text="Submit Changes"
+            android:text="@string/submit_changes"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -88,7 +88,7 @@
             android:id="@+id/btnSkip"
             android:layout_width="199dp"
             android:layout_height="wrap_content"
-            android:text="Skip for now"
+            android:text="@string/skip_for_now"
             android:visibility="invisible"
             tools:visibility="visible" />
     </LinearLayout>

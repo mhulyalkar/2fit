@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Models.WorkoutActivity">
+    tools:context="com.codepath.twofitapp.Activities.WorkoutActivity">
 
     <TextView
         android:id="@+id/tvExercise"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_below="@+id/tvTimer"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@id/tvTimer"
+        android:layout_alignStart="@id/ivTimerIcon"
         android:layout_marginStart="0dp"
         android:layout_marginTop="100dp"
         android:textSize="24sp"
@@ -23,25 +23,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="TextView"
+        android:layout_toEndOf="@id/ivTimerIcon"
         android:textSize="24sp"
         tools:text="1:32 left" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivTimerIcon"
         android:layout_width="77dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
         android:translationX="0dp"
         app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivExercisePoster"
         android:layout_width="236dp"
         android:layout_height="229dp"
-        android:layout_below="@+id/tvExercise"
-        android:layout_alignStart="@+id/tvExercise"
+        android:layout_below="@id/tvExercise"
+        android:layout_alignStart="@id/tvExercise"
         android:layout_marginStart="0dp"
         android:layout_marginTop="100dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -50,28 +49,29 @@
         android:id="@+id/tvExerciseTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_marginLeft="50dp"
+        android:layout_below="@id/ivExercisePoster"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:visibility="invisible"
-        tools:text="40 seconds" />
+        tools:text="40 seconds"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvExerciseTimer"
+        android:layout_alignTop="@id/tvExerciseTimer"
         android:layout_marginStart="150dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/tvExerciseTimer"
-        android:text="Next" />
+        android:layout_toEndOf="@id/tvExerciseTimer"
+        android:text="@string/next" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="90dp"
-        android:layout_toEndOf="@+id/tvTimer"
+        android:layout_toEndOf="@id/tvTimer"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
     <ImageButton

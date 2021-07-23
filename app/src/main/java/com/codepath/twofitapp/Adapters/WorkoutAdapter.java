@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Adapters;
+package com.codepath.twofitapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codepath.myapplication.ParseObjects.Workout;
-import com.codepath.myapplication.R;
+import com.codepath.twofitapp.ParseObjects.Workout;
+import com.codepath.twofitapp.R;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -6,6 +6,31 @@
     <string name="title_activity_workout">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="weeklyreport">WeeklyReport</string>
+    <string name="caloriesBurnedTitle">Calories Burned:</string>
+    <string name="daysInARowTitle">Days in a row:</string>
+    <string name="timeSpentTitle">Time spent:</string>
+    <string name="add_time">Add Time:</string>
+    <string name="_1_minute">+ 1 minute</string>
+    <string name="_2_minutes">+ 2 Minutes</string>
+    <string name="_5_minutes">+5 Minutes</string>
+    <string name="_10_minutes">+10 Minutes</string>
+    <string name="custom">Custom</string>
+    <string name="number">Number</string>
+    <string name="end_workout">End Workout</string>
+    <string name="next">Next</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="height_in">Height (in)</string>
+    <string name="weight_lbs">Weight (lbs)</string>
+    <string name="gender">Gender</string>
+    <string name="submit_changes">Submit Changes</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="workout">Workout:</string>
+    <string name="difficulty">Difficulty:</string>
+    <string name="start">Start</string>
     <string-array name="spgender_content">
         <item>Male</item>
         <item>Female</item>
