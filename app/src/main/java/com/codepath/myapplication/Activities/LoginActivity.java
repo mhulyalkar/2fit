@@ -1,4 +1,4 @@
-package com.codepath.twofitapp.Activities;
+package com.codepath.myapplication.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codepath.twofitapp.ParseObjects.Exercise;
-import com.codepath.twofitapp.ParseObjects.WeeklyReport;
-import com.codepath.twofitapp.R;
+import com.codepath.myapplication.ParseObjects.Exercise;
+import com.codepath.myapplication.ParseObjects.WeeklyReport;
+import com.codepath.myapplication.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
@@ -33,9 +33,9 @@ import java.util.List;
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+    private final static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private static ParseUser currentUser;
     private static WeeklyReport currentWeeklyReport;
-    private final static HashMap<String, Exercise> exercisesMap = new HashMap<>();
     private EditText etUsername;
     private EditText etPassword;
     private Button btnSignUp;

@@ -1,4 +1,4 @@
-package com.codepath.twofitapp.Activities;
+package com.codepath.myapplication.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codepath.twofitapp.ParseObjects.Workout;
-import com.codepath.twofitapp.R;
+import com.codepath.myapplication.ParseObjects.Workout;
+import com.codepath.myapplication.R;
 
 /**
  * Shows the details of a selected workout.

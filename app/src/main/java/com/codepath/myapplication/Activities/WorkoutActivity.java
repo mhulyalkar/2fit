@@ -1,4 +1,4 @@
-package com.codepath.twofitapp.Activities;
+package com.codepath.myapplication.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +17,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codepath.twofitapp.ParseObjects.Exercise;
-import com.codepath.twofitapp.ParseObjects.WeeklyReport;
-import com.codepath.twofitapp.ParseObjects.Workout;
-import com.codepath.twofitapp.R;
+import com.codepath.myapplication.ParseObjects.Exercise;
+import com.codepath.myapplication.ParseObjects.WeeklyReport;
+import com.codepath.myapplication.ParseObjects.Workout;
+import com.codepath.myapplication.R;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
 
@@ -33,12 +33,7 @@ import java.util.Map;
  * Screen which shows all the exercises of a workout.
  */
 public class WorkoutActivity extends AppCompatActivity {
-    private enum TimerType {
-        MAIN,
-        MINI
-    }
     private static final String TAG = "WorkoutActivity";
-
     private List<Exercise> workoutPlan;
     private Map<String, Exercise> exercisesMap;
     private Workout workout;
@@ -246,6 +241,11 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    private enum TimerType {
+        MAIN,
+        MINI
     }
 
     public class CustomOnClickListener implements View.OnClickListener {

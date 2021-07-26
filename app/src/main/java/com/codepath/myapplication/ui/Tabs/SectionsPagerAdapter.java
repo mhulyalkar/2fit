@@ -1,4 +1,4 @@
-package com.codepath.twofitapp.ui.Tabs;
+package com.codepath.myapplication.ui.Tabs;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.codepath.twofitapp.R;
+import com.codepath.myapplication.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

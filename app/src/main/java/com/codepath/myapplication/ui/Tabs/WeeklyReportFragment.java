@@ -1,4 +1,4 @@
-package com.codepath.twofitapp.ui.Tabs;
+package com.codepath.myapplication.ui.Tabs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.codepath.twofitapp.Activities.LoginActivity;
-import com.codepath.twofitapp.ParseObjects.WeeklyReport;
-import com.codepath.twofitapp.R;
+import com.codepath.myapplication.Activities.LoginActivity;
+import com.codepath.myapplication.ParseObjects.WeeklyReport;
+import com.codepath.myapplication.R;
 
 /**
  * Shows data on user's activity for the past week.

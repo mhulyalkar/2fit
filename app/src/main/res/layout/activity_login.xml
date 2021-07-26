@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.codepath.twofitapp.Activities.LoginActivity">
+    tools:context="com.codepath.myapplication.Activities.LoginActivity">
 
     <EditText
         android:id="@+id/etUsername"

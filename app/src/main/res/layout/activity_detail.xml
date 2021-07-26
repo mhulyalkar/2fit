@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.twofitapp.Activities.DetailActivity">
+    tools:context="com.codepath.myapplication.Activities.DetailActivity">
 
     <TextView
         android:id="@+id/tvWorkoutName"
