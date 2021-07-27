@@ -9,7 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -23,6 +23,8 @@ import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +42,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView tvTimer;
     private TextView tvExercise;
     private TextView tvExerciseTimer;
-    private ImageButton ibPause;
+    private SparkButton btnPause;
     private CustomCountDownTimer mainTimer;
     private CustomCountDownTimer exerciseTimer;
     private Button btnNext;
@@ -172,21 +174,29 @@ public class WorkoutActivity extends AppCompatActivity {
         exercisesMap = LoginActivity.getExercisesMap();
         workoutPlan = generateWorkout();
         workoutPlan.add(index, exercisesMap.get("Jumping Jacks"));
-        ibPause = findViewById(R.id.ibPause);
-        ibPause.setOnClickListener(new View.OnClickListener() {
+        btnPause = findViewById(R.id.btnPause);
+        btnPause.setEventListener(new SparkEventListener() {
             @Override
-            public void onClick(View v) {
+            public void onEvent(ImageView button, boolean buttonState) {
+                Log.i(TAG, "onEvent");
                 if (!isPaused) {
                     timerPause();
                     isPaused = true;
-                    ibPause.setImageResource(R.drawable.ic_stat_pause);
                 } else {
                     timerResume();
                     isPaused = false;
-                    ibPause.setImageResource(R.drawable.ic_stat_name);
                 }
             }
+
+            @Override
+            public void onEventAnimationEnd(ImageView button, boolean buttonState) {
+            }
+
+            @Override
+            public void onEventAnimationStart(ImageView button, boolean buttonState) {
+            }
         });
+
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +287,7 @@ public class WorkoutActivity extends AppCompatActivity {
         private long milliLeft;
 
         public CustomCountDownTimer(long millisInFuture, long countDownInterval, TimerType type) {
-            super(millisInFuture + 1000, countDownInterval);
+            super(millisInFuture, countDownInterval);
             this.type = type;
         }
 
@@ -287,10 +297,10 @@ public class WorkoutActivity extends AppCompatActivity {
             final long min = (millisUntilFinished / (1000 * 60));
             final long sec = ((millisUntilFinished / 1000) - min * 60);
             final String secString;
-            if (sec < 10) {
-                secString = "0" + sec;
+            if (sec < 9) {
+                secString = "0" + (sec + 1);
             } else {
-                secString = sec + "";
+                secString = (sec + 1) + "";
             }
             if (type == TimerType.MAIN) {
                 tvTimer.setText(min + ":" + secString);
@@ -306,6 +316,7 @@ public class WorkoutActivity extends AppCompatActivity {
         public void onFinish() {
             //Finishes exercise timer if main timer runs out
             if (type == TimerType.MAIN) {
+                tvTimer.setText("0:00");
                 if (exerciseTimer != null && exerciseTimer.getMilliLeft() > 0) {
                     exerciseTimer.onFinish();
                 }
@@ -313,6 +324,7 @@ public class WorkoutActivity extends AppCompatActivity {
             }
             if (type == TimerType.MINI) {
                 tvExerciseTimer.setVisibility(View.INVISIBLE);
+                tvExerciseTimer.setText("0:00");
             }
         }
 

@@ -32,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final String CLIENT_ID = "444623aa7a4a4026ae43611406f1056e";
     private static final String REDIRECT_URI = "http://com.codepath.twofitapp.2fitApp/callback";
-    private SpotifyAppRemote mSpotifyAppRemote;
+    private static SpotifyAppRemote mSpotifyAppRemote;
+
+    public static SpotifyAppRemote getMSpotifyAppRemote() {
+        return mSpotifyAppRemote;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         final FloatingActionButton fab = binding.fab;
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,9 +122,5 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         mSpotifyAppRemote.getPlayerApi().pause();
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-    }
-
-    public SpotifyAppRemote getMSpotifyAppRemote() {
-        return mSpotifyAppRemote;
     }
 }
