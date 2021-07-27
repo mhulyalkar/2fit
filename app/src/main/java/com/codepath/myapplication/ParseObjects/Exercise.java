@@ -5,7 +5,7 @@ import com.parse.ParseObject;
 
 @ParseClassName("Exersize")
 public class Exercise extends ParseObject {
-    public static final String KEY_IS_REPS = "isReps";
+    private static final String KEY_IS_REPS = "isReps";
     private static final String KEY_NAME = "name";
     private static final String KEY_BEGINNER = "beginner";
     private static final String KEY_INTERMEDIATE = "intermediate";
