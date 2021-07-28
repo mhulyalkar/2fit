@@ -69,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnLogout) {
-            mSpotifyAppRemote.getPlayerApi().pause();
+            if (LoginActivity.getCurrentWeeklyReport() != null) {
+                mSpotifyAppRemote.getPlayerApi().pause();
+            }
             final Intent i = new Intent(MainActivity.this, LoginActivity.class);
             LoginActivity.removeCurrentWeeklyReport();
             LoginActivity.removeCurrentUser();
@@ -87,21 +89,25 @@ public class MainActivity extends AppCompatActivity {
                         .setRedirectUri(REDIRECT_URI)
                         .showAuthView(true)
                         .build();
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
+        if (LoginActivity.getCurrentWeeklyReport() != null) {
+            SpotifyAppRemote.connect(this, connectionParams,
+                    new Connector.ConnectionListener() {
 
-                    @Override
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.i(TAG, "Connected to Spotify");
-                        connected();
-                    }
+                        @Override
+                        public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                            mSpotifyAppRemote = spotifyAppRemote;
+                            Log.i(TAG, "Connected to Spotify");
+                            Toast.makeText(MainActivity.this, "Connected to Spotify" ,Toast.LENGTH_SHORT).show();
+                            connected();
+                        }
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        Log.e("MainActivity", throwable.getMessage(), throwable);
-                    }
-                });
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            Log.e("MainActivity", throwable.getMessage(), throwable);
+                            Toast.makeText(MainActivity.this, "Could not connect to Spotify",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
     private void connected() {
@@ -122,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mSpotifyAppRemote.getPlayerApi().pause();
-        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+        if (LoginActivity.getCurrentWeeklyReport() != null) {
+            mSpotifyAppRemote.getPlayerApi().pause();
+            SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+        }
     }
 }

@@ -300,13 +300,14 @@ public class WorkoutActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             milliLeft = millisUntilFinished;
+            millisUntilFinished += 1000;
             final long min = (millisUntilFinished / (1000 * 60));
             final long sec = ((millisUntilFinished / 1000) - min * 60);
             final String secString;
-            if (sec < 9) {
-                secString = "0" + (sec + 1);
+            if (sec < 10) {
+                secString = "0" + (sec);
             } else {
-                secString = (sec + 1) + "";
+                secString = (sec) + "";
             }
             if (type == TimerType.MAIN) {
                 tvTimer.setText(min + ":" + secString);

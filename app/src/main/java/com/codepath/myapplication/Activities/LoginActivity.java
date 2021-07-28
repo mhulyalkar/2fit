@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Error While saving Weekly Report" + e);
+                    Log.e(TAG, "Error while saving Weekly Report" + e);
                     Toast.makeText(LoginActivity.this, "Error While saving Weekly Report", Toast.LENGTH_SHORT).show();
                     return;
                 }
