@@ -125,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (workoutList.size() == 0) {
                                 final ParseQuery<Workout> queryWorkouts = ParseQuery.getQuery(Workout.class);
                                 queryWorkouts.fromLocalDatastore();
+                                queryWorkouts.addAscendingOrder("difficulty");
                                 queryWorkouts.findInBackground(new FindCallback<Workout>() {
                                     @Override
                                     public void done(List<Workout> workouts, ParseException e) {
