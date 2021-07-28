@@ -31,6 +31,8 @@
     <string name="workout">Workout:</string>
     <string name="difficulty">Difficulty:</string>
     <string name="start">Start</string>
+    <string name="skip_log_in">Skip Log In</string>
+    <string name="weekly_report_offline">Log out and log back in to see weekly report</string>
     <string-array name="spgender_content">
         <item>Male</item>
         <item>Female</item>

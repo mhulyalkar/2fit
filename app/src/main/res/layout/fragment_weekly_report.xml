@@ -34,4 +34,14 @@
         android:layout_marginTop="0dp"
         tools:text="@string/timeSpentTitle" />
 
+    <TextView
+        android:id="@+id/tvWeeklyReportOffline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTimeSpent"
+        android:layout_marginTop="100dp"
+        android:text="@string/weekly_report_offline"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
 </RelativeLayout>

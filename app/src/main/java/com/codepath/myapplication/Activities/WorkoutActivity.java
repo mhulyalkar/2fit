@@ -104,45 +104,51 @@ public class WorkoutActivity extends AppCompatActivity {
         btnEndWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final WeeklyReport currentWeeklyReport = LoginActivity.getCurrentWeeklyReport();
-                final Date currentDate = new Date();
-                final Date lastDate = currentWeeklyReport.getLastWorkoutDate();
-                if (lastDate != null) {
-                    final Date nextDate = new Date(lastDate.getYear(), lastDate.getMonth(), lastDate.getDate() + 1);
-                    if (nextDate.getYear() == currentDate.getYear()
-                            && nextDate.getMonth() == currentDate.getMonth()
-                            && nextDate.getDate() == currentDate.getDate()) {
-                        currentWeeklyReport.setDaysInARow(currentWeeklyReport.getDaysInARow() + 1);
-                    } else if (currentDate.compareTo(nextDate) > 0) {
+                if (LoginActivity.getCurrentWeeklyReport() != null) {
+                    final WeeklyReport currentWeeklyReport = LoginActivity.getCurrentWeeklyReport();
+                    final Date currentDate = new Date();
+                    final Date lastDate = currentWeeklyReport.getLastWorkoutDate();
+                    if (lastDate != null) {
+                        final Date nextDate = new Date(lastDate.getYear(), lastDate.getMonth(), lastDate.getDate() + 1);
+                        if (nextDate.getYear() == currentDate.getYear()
+                                && nextDate.getMonth() == currentDate.getMonth()
+                                && nextDate.getDate() == currentDate.getDate()) {
+                            currentWeeklyReport.setDaysInARow(currentWeeklyReport.getDaysInARow() + 1);
+                        } else if (currentDate.compareTo(nextDate) > 0) {
+                            currentWeeklyReport.setDaysInARow(1);
+                        }
+                    } else {
                         currentWeeklyReport.setDaysInARow(1);
                     }
-                } else {
-                    currentWeeklyReport.setDaysInARow(1);
-                }
-                currentWeeklyReport.updateLastWorkoutDate();
-                currentWeeklyReport.setDuration(currentWeeklyReport.getDuration() + totalExerciseTimeInMinutes);
-                final long calsPerMin;
-                if (workout.getDifficulty() == 1 || workout.getDifficulty() == 2) {
-                    calsPerMin = 162 / 60;
-                } else if (workout.getDifficulty() == 3 || workout.getDifficulty() == 4) {
-                    calsPerMin = ((216 + 162) / 2) / 60;
-                } else {
-                    calsPerMin = 216 / 60;
-                }
-                currentWeeklyReport.setWeeklyCaloriesBurned(currentWeeklyReport.getWeeklyCaloriesBurned() + ((int) (calsPerMin * totalExerciseTimeInMinutes)));
-                currentWeeklyReport.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Issue with updating WeeklyReport", e);
-                            Toast.makeText(WorkoutActivity.this, "Issue with updating WeeklyReport", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
-                        popupWindow.dismiss();
-                        startActivity(i);
+                    currentWeeklyReport.updateLastWorkoutDate();
+                    currentWeeklyReport.setDuration(currentWeeklyReport.getDuration() + totalExerciseTimeInMinutes);
+                    final long calsPerMin;
+                    if (workout.getDifficulty() == 1 || workout.getDifficulty() == 2) {
+                        calsPerMin = 162 / 60;
+                    } else if (workout.getDifficulty() == 3 || workout.getDifficulty() == 4) {
+                        calsPerMin = ((216 + 162) / 2) / 60;
+                    } else {
+                        calsPerMin = 216 / 60;
                     }
-                });
+                    currentWeeklyReport.setWeeklyCaloriesBurned(currentWeeklyReport.getWeeklyCaloriesBurned() + ((int) (calsPerMin * totalExerciseTimeInMinutes)));
+                    currentWeeklyReport.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Log.e(TAG, "Issue with updating WeeklyReport", e);
+                                Toast.makeText(WorkoutActivity.this, "Issue with updating WeeklyReport", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+                            popupWindow.dismiss();
+                            startActivity(i);
+                        }
+                    });
+                } else {
+                    final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+                    popupWindow.dismiss();
+                    startActivity(i);
+                }
             }
         });
     }

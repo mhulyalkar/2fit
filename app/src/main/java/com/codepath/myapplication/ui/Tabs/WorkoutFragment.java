@@ -2,11 +2,9 @@ package com.codepath.myapplication.ui.Tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.myapplication.Activities.DetailActivity;
+import com.codepath.myapplication.Activities.LoginActivity;
 import com.codepath.myapplication.Activities.WorkoutActivity;
 import com.codepath.myapplication.Adapters.WorkoutAdapter;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +28,6 @@ import java.util.List;
  * RecyclerView of all Workout objects on Parse Server.
  */
 public class WorkoutFragment extends Fragment {
-    private static final String TAG = "WorkoutFragment";
     private WorkoutAdapter nAdapter;
     private List<Workout> allWorkouts;
     private RecyclerView rvWorkouts;
@@ -66,20 +61,8 @@ public class WorkoutFragment extends Fragment {
         nAdapter = new WorkoutAdapter(allWorkouts, getActivity(), onClickListener);
         rvWorkouts.setAdapter(nAdapter);
         rvWorkouts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final ParseQuery<Workout> query = ParseQuery.getQuery(Workout.class);
-        query.addAscendingOrder("difficulty");
-        query.findInBackground(new FindCallback<Workout>() {
-            @Override
-            public void done(List<Workout> workouts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting workouts", e);
-                    Toast.makeText(getActivity(), "Issue with getting workouts", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                allWorkouts.addAll(workouts);
-                nAdapter.notifyDataSetChanged();
-            }
-        });
+        allWorkouts.addAll(LoginActivity.getWorkoutList());
+        nAdapter.notifyDataSetChanged();
         return rootView;
     }
 }

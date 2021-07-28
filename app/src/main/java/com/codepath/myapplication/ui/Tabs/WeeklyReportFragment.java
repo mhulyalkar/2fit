@@ -21,6 +21,7 @@ public class WeeklyReportFragment extends Fragment {
     private TextView tvCalories;
     private TextView tvDaysInARow;
     private TextView tvTimeSpent;
+    private TextView tvWeeklyReportOffline;
 
     @Nullable
     @Override
@@ -29,11 +30,15 @@ public class WeeklyReportFragment extends Fragment {
         tvCalories = rootView.findViewById(R.id.tvCalories);
         tvDaysInARow = rootView.findViewById(R.id.tvDaysInARow);
         tvTimeSpent = rootView.findViewById(R.id.tvTimeSpent);
-
-        final WeeklyReport weeklyReport = (WeeklyReport) LoginActivity.getCurrentWeeklyReport();
-        tvCalories.setText("Calories Burned: " + weeklyReport.getWeeklyCaloriesBurned());
-        tvDaysInARow.setText("Days in a Row: " + weeklyReport.getDaysInARow());
-        tvTimeSpent.setText("Time spent: " + weeklyReport.getDuration());
+        tvWeeklyReportOffline = rootView.findViewById(R.id.tvWeeklyReportOffline);
+        if (LoginActivity.getCurrentWeeklyReport() != null) {
+            final WeeklyReport weeklyReport = (WeeklyReport) LoginActivity.getCurrentWeeklyReport();
+            tvCalories.setText("Calories Burned: " + weeklyReport.getWeeklyCaloriesBurned());
+            tvDaysInARow.setText("Days in a Row: " + weeklyReport.getDaysInARow());
+            tvTimeSpent.setText("Time spent: " + weeklyReport.getDuration());
+        } else {
+            tvWeeklyReportOffline.setVisibility(View.VISIBLE);
+        }
         return rootView;
     }
 }

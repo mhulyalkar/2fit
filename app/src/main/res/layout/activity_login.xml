@@ -93,4 +93,11 @@
             tools:visibility="visible" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnSkipLogIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_log_in"
+        android:visibility="invisible" />
+
 </LinearLayout>

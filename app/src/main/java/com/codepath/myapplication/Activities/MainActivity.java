@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.btnLogout) {
             mSpotifyAppRemote.getPlayerApi().pause();
             final Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            LoginActivity.removeCurrentWeeklyReport();
+            LoginActivity.removeCurrentUser();
             ParseUser.logOut();
             startActivity(i);
         }

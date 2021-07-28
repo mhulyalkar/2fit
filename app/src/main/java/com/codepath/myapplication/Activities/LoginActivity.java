@@ -14,16 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.WeeklyReport;
+import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +37,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private final static HashMap<String, Exercise> exercisesMap = new HashMap<>();
+    private final static List<Workout> workoutList = new ArrayList<>();
     private static ParseUser currentUser;
     private static WeeklyReport currentWeeklyReport;
     private EditText etUsername;
@@ -41,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnSignUp;
     private Button btnLogin;
     private Spinner spGender;
+    private Button btnSkipLogIn;
 
     public static ParseUser getCurrentUser() {
         return currentUser;
@@ -53,6 +58,19 @@ public class LoginActivity extends AppCompatActivity {
     public static WeeklyReport getCurrentWeeklyReport() {
         return currentWeeklyReport;
     }
+
+    public static List<Workout> getWorkoutList() {
+        return workoutList;
+    }
+
+    public static void removeCurrentWeeklyReport() {
+        LoginActivity.currentWeeklyReport = null;
+    }
+
+    public static void removeCurrentUser() {
+        currentUser = null;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +103,53 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+        btnSkipLogIn = findViewById(R.id.btnSkipLogIn);
+        btnSkipLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (exercisesMap.isEmpty()) {
+                    final ParseQuery<Exercise> queryExercises = ParseQuery.getQuery(Exercise.class);
+                    queryExercises.fromLocalDatastore();
+                    queryExercises.findInBackground(new FindCallback<Exercise>() {
+                        public void done(List<Exercise> exercises,
+                                         ParseException e) {
+                            if (e != null) {
+                                Log.e(TAG, "Issue with getting exercises offline", e);
+                                Toast.makeText(LoginActivity.this, "Issue with getting exercises offline", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            for (int i = 0; i < exercises.size(); i++) {
+                                final Exercise currentExercise = exercises.get(i);
+                                exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
+                            }
+                            if (workoutList.size() == 0) {
+                                final ParseQuery<Workout> queryWorkouts = ParseQuery.getQuery(Workout.class);
+                                queryWorkouts.fromLocalDatastore();
+                                queryWorkouts.findInBackground(new FindCallback<Workout>() {
+                                    @Override
+                                    public void done(List<Workout> workouts, ParseException e) {
+                                        if (e != null) {
+                                            Log.e(TAG, "Issue with getting workouts offline", e);
+                                            Toast.makeText(LoginActivity.this, "Issue with getting workouts offline", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                        workoutList.addAll(workouts);
+                                        final Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                    }
+                                });
+                            } else {
+                                final Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(i);
+                            }
+                        }
+                    });
+                } else {
+                    final Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
+            }
+        });
     }
 
     private void loginUser(String username, String password) {
@@ -94,10 +159,24 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     Log.e(TAG, "Issue with log in", e);
                     Toast.makeText(LoginActivity.this, "Issue with logging in", Toast.LENGTH_SHORT).show();
+                    btnSkipLogIn.setVisibility(View.VISIBLE);
                     return;
                 }
                 currentUser = user;
-                queryWeeklyReport();
+                final ParseQuery<Workout> query = ParseQuery.getQuery(Workout.class);
+                query.addAscendingOrder("difficulty");
+                query.findInBackground(new FindCallback<Workout>() {
+                    @Override
+                    public void done(List<Workout> workouts, ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issue with getting workouts", e);
+                            Toast.makeText(LoginActivity.this, "Issue with getting workouts", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        workoutList.addAll(workouts);
+                        queryWeeklyReport();
+                    }
+                });
             }
         });
     }
@@ -117,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     Log.e(TAG, "Error While saving Weekly Report" + e);
                     Toast.makeText(LoginActivity.this, "Error While saving Weekly Report", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
@@ -145,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Issue with getting exercises", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                ParseObject.pinAllInBackground(exercises);
                 for (int i = 0; i < exercises.size(); i++) {
                     final Exercise currentExercise = exercises.get(i);
                     exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
@@ -164,6 +245,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Issue with getting weekly report", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                item.pinInBackground("weeklyReport");
                 currentWeeklyReport = item;
                 if (currentWeeklyReport.getLastWorkoutDate() != null) {
                     //reset WeeklyReport if its a new week
