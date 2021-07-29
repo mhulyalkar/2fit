@@ -11,7 +11,6 @@
 All you need is 2 minutes a day to form a habit. 2fit uses this idea to get users more active without needed a huge gym or expensive equipment. On 2fit, there are full body calisthenic workout plans with an initially set duration of 2 minutes. However, after the initial 2 minutes the user can choose to continue. 
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
 - **Category:** Fitness
 - **Mobile:** This app would have the same functionality on desktop or mobile
 - **Story:** Allows users to stay active anywhere while using behavoiral techniques to promote consistent use.
