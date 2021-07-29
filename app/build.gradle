@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation files('libs/spotify-app-remote-release-0.7.2.aar')
+    implementation files('/Users/miguelhulyalkar/AndroidStudioProjects/MyApplication/app/libs/YouTubeAndroidPlayerApi (2).jar')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -50,4 +51,5 @@ dependencies {
     implementation 'com.github.varunest:sparkbutton:1.0.6'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation files('libs/YouTubeAndroidPlayerApi (2).jar')
 }

@@ -10,6 +10,7 @@ public class Exercise extends ParseObject {
     private static final String KEY_BEGINNER = "beginner";
     private static final String KEY_INTERMEDIATE = "intermediate";
     private static final String KEY_ADVANCED = "advanced";
+    private static final String KEY_VIDEO_ID = "videoId";
 
     public Exercise() {
         super();
@@ -33,5 +34,9 @@ public class Exercise extends ParseObject {
 
     public boolean getIsReps() {
         return getBoolean(KEY_IS_REPS);
+    }
+
+    public String getVideoId() {
+        return getString(KEY_VIDEO_ID);
     }
 }

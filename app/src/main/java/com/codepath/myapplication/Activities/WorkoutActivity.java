@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -46,6 +47,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private CustomCountDownTimer mainTimer;
     private CustomCountDownTimer exerciseTimer;
     private Button btnNext;
+    private ImageButton btnExerciseVideo;
     private boolean isPaused = false;
     private int index;
     private int totalExerciseTimeInMinutes = 0;
@@ -180,6 +182,19 @@ public class WorkoutActivity extends AppCompatActivity {
         exercisesMap = LoginActivity.getExercisesMap();
         workoutPlan = generateWorkout();
         workoutPlan.add(index, exercisesMap.get("Jumping Jacks"));
+        btnExerciseVideo = findViewById(R.id.btnExerciseVideo);
+        btnExerciseVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LoginActivity.getCurrentWeeklyReport() != null) {
+                    final Intent i = new Intent(WorkoutActivity.this, GuideActivity.class);
+                    i.putExtra("videoId", workoutPlan.get(index).getVideoId());
+                    startActivity(i);
+                } else {
+                    Toast.makeText(WorkoutActivity.this, "Not connected/logged in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         btnPause = findViewById(R.id.btnPause);
         btnPause.setEventListener(new SparkEventListener() {
             @Override

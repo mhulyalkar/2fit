@@ -8,7 +8,7 @@
         android:id="@+id/tvWeeklyReportTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/weeklyreport" />
+        android:text="@string/weekly_report" />
 
     <TextView
         android:id="@+id/tvCalories"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvWeeklyReportTitle"
         android:layout_marginTop="0dp"
-        tools:text="@string/caloriesBurnedTitle" />
+        tools:text="@string/calories_burned_title" />
 
     <TextView
         android:id="@+id/tvDaysInARow"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvCalories"
         android:layout_marginTop="0dp"
-        tools:text="@string/daysInARowTitle" />
+        tools:text="@string/days_in_a_row_title" />
 
     <TextView
         android:id="@+id/tvTimeSpent"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDaysInARow"
         android:layout_marginTop="0dp"
-        tools:text="@string/timeSpentTitle" />
+        tools:text="@string/time_spent_title" />
 
     <TextView
         android:id="@+id/tvWeeklyReportOffline"

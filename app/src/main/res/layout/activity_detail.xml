@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDifficultyTitle"
         android:layout_marginTop="50dp"
-        android:text="Target Areas: "
+        android:text="@string/target_areas"
         android:textSize="24sp" />
 
     <TextView

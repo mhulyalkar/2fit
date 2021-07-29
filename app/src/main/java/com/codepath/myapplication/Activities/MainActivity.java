@@ -97,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
                         public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                             mSpotifyAppRemote = spotifyAppRemote;
                             Log.i(TAG, "Connected to Spotify");
-                            Toast.makeText(MainActivity.this, "Connected to Spotify" ,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Connected to Spotify", Toast.LENGTH_SHORT).show();
                             connected();
                         }
 
                         @Override
                         public void onFailure(Throwable throwable) {
                             Log.e("MainActivity", throwable.getMessage(), throwable);
-                            Toast.makeText(MainActivity.this, "Could not connect to Spotify",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Could not connect to Spotify", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 .setEventCallback(playerState -> {
                     final Track track = playerState.track;
                     if (track != null) {
-                        Toast.makeText(MainActivity.this, track.name + " by " + track.artist.name, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, track.name + " by " + track.artist.name, Toast.LENGTH_SHORT).show();
                     } else {
                         Log.e(TAG, "Couldn't find track");
                         Toast.makeText(MainActivity.this, "Couldn't find track", Toast.LENGTH_SHORT).show();
