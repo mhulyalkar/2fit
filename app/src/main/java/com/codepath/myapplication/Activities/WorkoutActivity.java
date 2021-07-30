@@ -199,7 +199,6 @@ public class WorkoutActivity extends AppCompatActivity {
         btnPause.setEventListener(new SparkEventListener() {
             @Override
             public void onEvent(ImageView button, boolean buttonState) {
-                Log.i(TAG, "onEvent");
                 if (!isPaused) {
                     timerPause();
                     isPaused = true;
@@ -279,7 +278,7 @@ public class WorkoutActivity extends AppCompatActivity {
         MINI
     }
 
-    public class CustomOnClickListener implements View.OnClickListener {
+    private class CustomOnClickListener implements View.OnClickListener {
         private int min;
         private PopupWindow popupWindow;
 
