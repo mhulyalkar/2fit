@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BODY_SENSORS" />
 
     <queries>
         <intent>
@@ -19,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".Activities.GuideActivity"></activity>
+        <activity android:name=".Activities.GuideActivity"/>
         <activity android:name=".Activities.DetailActivity" />
         <activity android:name=".Activities.WorkoutActivity" />
         <activity
