@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         final TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        final FloatingActionButton fab = binding.fab;
+        final FloatingActionButton fab = binding.btnAddCustomWorkout;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

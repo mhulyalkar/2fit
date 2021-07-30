@@ -35,6 +35,7 @@
     <string name="weekly_report_offline">Log out and log back in to see weekly report and play music</string>
     <string name="go_back">Go Back</string>
     <string name="target_areas">Target Areas:</string>
+    <string name="log_out">Logout</string>
     <string-array name="spgender_content">
         <item>Male</item>
         <item>Female</item>

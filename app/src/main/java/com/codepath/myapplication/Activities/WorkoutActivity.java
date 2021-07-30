@@ -83,8 +83,8 @@ public class WorkoutActivity extends AppCompatActivity {
         //Popup window with buttons to reset the timer
         final View promptView;
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.popup_add_time, null));
-        promptView = pop.getContentView();
+        final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_add_time, null));
+        promptView = popupWindowAddTime.getContentView();
         final int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         final int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         final boolean focusable = false;

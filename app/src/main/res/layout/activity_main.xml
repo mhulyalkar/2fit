@@ -6,7 +6,7 @@
     tools:context="com.codepath.myapplication.Activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/TabLayout"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,14 +21,14 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/TabLayout"
+        android:layout_below="@id/tabLayout"
         android:layout_marginTop="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnAddCustomWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
