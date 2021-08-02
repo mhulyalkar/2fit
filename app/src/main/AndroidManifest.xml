@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:label=".Activities.GuideActivity"
+        <activity
+            android:name="com.codepath.myapplication.Activities.GuideActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:name="com.codepath.myapplication.Activities.GuideActivity"/>
+            android:label=".Activities.GuideActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".Activities.DetailActivity" />
         <activity android:name=".Activities.WorkoutActivity" />
         <activity

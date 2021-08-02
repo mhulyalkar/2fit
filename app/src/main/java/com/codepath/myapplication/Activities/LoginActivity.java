@@ -59,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         return currentWeeklyReport;
     }
 
+    public static void setCurrentWeeklyReport(WeeklyReport weeklyReport) {
+        currentWeeklyReport = weeklyReport;
+    }
+
     public static List<Workout> getWorkoutList() {
         return workoutList;
     }
@@ -70,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
     public static void removeCurrentUser() {
         currentUser = null;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,14 +243,14 @@ public class LoginActivity extends AppCompatActivity {
     private void queryWeeklyReport() {
         final ParseQuery<WeeklyReport> query = ParseQuery.getQuery(WeeklyReport.class);
         query.getInBackground(currentUser.getParseObject("weeklyReport").getObjectId(), new GetCallback<WeeklyReport>() {
-            public void done(WeeklyReport item, ParseException e) {
+            public void done(WeeklyReport weeklyReport, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting weeklyReport", e);
                     Toast.makeText(LoginActivity.this, "Issue with getting weekly report", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                item.pinInBackground("weeklyReport");
-                currentWeeklyReport = item;
+                weeklyReport.pinInBackground("weeklyReport");
+                currentWeeklyReport = weeklyReport;
                 if (currentWeeklyReport.getLastWorkoutDate() != null) {
                     //reset WeeklyReport if its a new week
                     final Date lastWorkoutDate = currentWeeklyReport.getLastWorkoutDate();
@@ -258,6 +261,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (nextMondayDate.compareTo(new Date()) <= 0) {
                         currentWeeklyReport.setWeeklyCaloriesBurned(0);
                         currentWeeklyReport.setDuration(0);
+                        currentWeeklyReport.setDaysInARow(0);
                         currentWeeklyReport.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {

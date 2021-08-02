@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvWeeklyReportTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/weekly_report" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvCalories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvWeeklyReportTitle"
-        android:layout_marginTop="0dp"
-        tools:text="@string/calories_burned_title" />
+        <TextView
+            android:id="@+id/tvWeeklyReportTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weekly_report"
+            android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvDaysInARow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvCalories"
-        android:layout_marginTop="0dp"
-        tools:text="@string/days_in_a_row_title" />
+        <TextView
+            android:id="@+id/tvCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeeklyReportTitle"
+            android:layout_marginTop="0dp"
+            tools:text="@string/calories_burned_title" />
 
-    <TextView
-        android:id="@+id/tvTimeSpent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvDaysInARow"
-        android:layout_marginTop="0dp"
-        tools:text="@string/time_spent_title" />
+        <TextView
+            android:id="@+id/tvDaysInARow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCalories"
+            android:layout_marginTop="0dp"
+            tools:text="@string/days_in_a_row_title" />
 
-    <TextView
-        android:id="@+id/tvWeeklyReportOffline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvTimeSpent"
-        android:layout_marginTop="100dp"
-        android:text="@string/weekly_report_offline"
-        android:visibility="invisible"
-        tools:visibility="visible" />
+        <TextView
+            android:id="@+id/tvTimeSpent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDaysInARow"
+            android:layout_marginTop="0dp"
+            tools:text="@string/time_spent_title" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvWeeklyReportOffline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTimeSpent"
+            android:layout_marginTop="100dp"
+            android:text="@string/weekly_report_offline"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+    </RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
