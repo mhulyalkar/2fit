@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.codepath.myapplication.Activities.DetailActivity;
 import com.codepath.myapplication.Activities.LoginActivity;
 import com.codepath.myapplication.Activities.WorkoutActivity;
@@ -49,6 +50,7 @@ public class WorkoutFragment extends Fragment {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("workout", allWorkouts.get(position));
                 startActivity(i);
+                Animatoo.animateFade(getActivity());
             }
 
             @Override
@@ -56,6 +58,7 @@ public class WorkoutFragment extends Fragment {
                 final Intent i = new Intent(getActivity(), DetailActivity.class);
                 i.putExtra("workout", allWorkouts.get(position));
                 startActivity(i);
+                Animatoo.animateSlideDown(getActivity());
             }
         };
         nAdapter = new WorkoutAdapter(allWorkouts, getActivity(), onClickListener);

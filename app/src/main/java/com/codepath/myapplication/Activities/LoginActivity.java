@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.ParseObjects.Workout;
@@ -140,17 +141,20 @@ public class LoginActivity extends AppCompatActivity {
                                         workoutList.addAll(workouts);
                                         final Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(i);
+                                        Animatoo.animateCard(LoginActivity.this);
                                     }
                                 });
                             } else {
                                 final Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);
+                                Animatoo.animateCard(LoginActivity.this);
                             }
                         }
                     });
                 } else {
                     final Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
+                    Animatoo.animateCard(LoginActivity.this);
                 }
             }
         });
@@ -236,6 +240,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 final Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
+                Animatoo.animateCard(LoginActivity.this);
             }
         });
     }

@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation files('libs/YouTubeAndroidPlayerApi (2).jar')
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.github.mohammadatif:Animatoo:master'
 }

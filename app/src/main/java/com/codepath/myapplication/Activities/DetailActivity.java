@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
 
@@ -42,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("workout", workout);
                 startActivity(i);
+                Animatoo.animateZoom(DetailActivity.this);
             }
         });
     }
