@@ -11,6 +11,7 @@ public class Workout extends ParseObject {
     private static final String KEY_TARGET_AREAS = "targetAreas";
     private static final String KEY_EXERCISES = "exersizes";
     private static final String KEY_DIFFICULTY = "difficulty";
+    private static final String KEY_IMAGE_URL = "imageURL";
 
     public Workout() {
         super();
@@ -30,5 +31,9 @@ public class Workout extends ParseObject {
 
     public int getDifficulty() {
         return getInt(KEY_DIFFICULTY);
+    }
+
+    public String getImageURL() {
+        return getString(KEY_IMAGE_URL);
     }
 }

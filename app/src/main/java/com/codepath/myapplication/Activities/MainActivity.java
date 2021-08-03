@@ -1,5 +1,6 @@
 package com.codepath.myapplication.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String REDIRECT_URI = "http://com.codepath.twofitapp.2fitApp/callback";
     private static SpotifyAppRemote mSpotifyAppRemote;
     private static Track currentTrack;
-    private boolean isPaused = false;
+    private static boolean isPaused = false;
 
     public static SpotifyAppRemote getMSpotifyAppRemote() {
         return mSpotifyAppRemote;
@@ -65,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Working on implementing custom workout", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                spotifyPopUp();
+                spotifyPopUp(MainActivity.this);
             }
         });
     }
@@ -138,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void spotifyPopUp() {
+    private static void spotifyPopUp(Activity activity) {
         final View promptView;
-        final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_spotify, null));
         promptView = popupWindowAddTime.getContentView();
         final int width = LinearLayout.LayoutParams.MATCH_PARENT;

@@ -1,20 +1,30 @@
 package com.codepath.myapplication.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.codepath.myapplication.Activities.LoginActivity;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
     private final List<Workout> workouts;
@@ -54,10 +64,12 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView etWorkoutItem;
+        private final ImageView ivExerciseImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             etWorkoutItem = itemView.findViewById(R.id.etWorkoutItem);
+            ivExerciseImage = itemView.findViewById(R.id.ivExerciseImage);
         }
 
         public void bind(Workout workout) {
@@ -76,6 +88,15 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
                     return true;
                 }
             });
+            if (LoginActivity.getCurrentWeeklyReport() != null) {
+                final MultiTransformation multiLeft = new MultiTransformation(
+                        new CenterCrop(),
+                        new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT));
+                Glide.with(context).load(workout.getImageURL()).apply(bitmapTransform(multiLeft)).into(ivExerciseImage);
+            } else {
+                etWorkoutItem.setTextColor(Color.BLACK);
+                etWorkoutItem.setBackgroundResource(R.drawable.custom_border);
+            }
         }
     }
 }

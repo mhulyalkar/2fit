@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/custom_border">
+    android:layout_height="160dp"
+    tools:ignore="ExtraText">
+
+    <ImageView
+        android:id="@+id/ivExerciseImage"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
     <TextView
         android:id="@+id/etWorkoutItem"
         android:layout_width="match_parent"
-        android:layout_height="127dp"
+        android:layout_height="150dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         tools:text="Sit Ups: Beginner" />
 </RelativeLayout>
