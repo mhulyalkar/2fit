@@ -11,6 +11,7 @@ public class Exercise extends ParseObject {
     private static final String KEY_INTERMEDIATE = "intermediate";
     private static final String KEY_ADVANCED = "advanced";
     private static final String KEY_VIDEO_ID = "videoId";
+    private static final String KEY_IMAGE_URL = "imageURL";
 
     public Exercise() {
         super();
@@ -38,5 +39,9 @@ public class Exercise extends ParseObject {
 
     public String getVideoId() {
         return getString(KEY_VIDEO_ID);
+    }
+
+    public String getImageURL() {
+        return getString(KEY_IMAGE_URL);
     }
 }

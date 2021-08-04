@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         final TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        final FloatingActionButton fab = binding.btnAddCustomWorkout;
+        final FloatingActionButton fab = binding.btnSpotify;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,17 +137,17 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private static void spotifyPopUp(Activity activity) {
+    public static void spotifyPopUp(Activity activity) {
         final View promptView;
         final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_spotify, null));
         promptView = popupWindowAddTime.getContentView();
         final int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        final int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        final int height = 500;
         final boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(promptView, width, height, focusable);
         popupWindow.setAnimationStyle(R.style.popup_window_animation);
-        popupWindow.showAtLocation(promptView, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(promptView, Gravity.CENTER, 0, 900);
         final ImageButton ibSpotifySkipNext, ibSpotifySkipPrev;
         final ImageView ivSpotifyLogo, ivSongImage;
         final SparkButton btnSpotifyPause;

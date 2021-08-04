@@ -18,10 +18,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
 import com.varunest.sparkbutton.SparkButton;
@@ -31,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
+import static com.codepath.myapplication.Activities.MainActivity.spotifyPopUp;
 
 /**
  * Screen which shows all the exercises of a workout.
@@ -46,8 +53,10 @@ public class WorkoutActivity extends AppCompatActivity {
     private SparkButton btnPause;
     private CustomCountDownTimer mainTimer;
     private CustomCountDownTimer exerciseTimer;
-    private Button btnNext;
+    private ImageButton btnNext;
     private ImageButton btnExerciseVideo;
+    private ImageButton btnCancel;
+    private ImageView ivExercisePoster;
     private boolean isPaused = false;
     private int index;
     private int totalExerciseTimeInMinutes = 0;
@@ -181,7 +190,15 @@ public class WorkoutActivity extends AppCompatActivity {
         workout = getIntent().getParcelableExtra("workout");
         exercisesMap = LoginActivity.getExercisesMap();
         workoutPlan = generateWorkout();
+        ivExercisePoster = findViewById(R.id.ivExercisePoster);
         workoutPlan.add(index, exercisesMap.get("Jumping Jacks"));
+        final FloatingActionButton fab = findViewById(R.id.btnSpotify);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spotifyPopUp(WorkoutActivity.this);
+            }
+        });
         btnExerciseVideo = findViewById(R.id.btnExerciseVideo);
         btnExerciseVideo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +245,20 @@ public class WorkoutActivity extends AppCompatActivity {
                 load();
             }
         });
+        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (exerciseTimer != null) {
+                    exerciseTimer.cancel();
+                    exerciseTimer.setMilliLeft(0);
+                }
+                mainTimer.cancel();
+                mainTimer.setMilliLeft(0);
+                final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         tvTimer = findViewById(R.id.tvTimer);
         tvExercise = findViewById(R.id.tvExercise);
         tvExerciseTimer = findViewById(R.id.tvExerciseTimer);
@@ -260,12 +291,17 @@ public class WorkoutActivity extends AppCompatActivity {
         String reps;
         if (exercise.getIsReps()) {
             reps = "x" + repNumber + " Repetitions";
+            tvExercise.setText(workoutPlan.get(index).getExerciseName() + "\n" + reps);
         } else {
             timerStart(repNumber * 1000, TimerType.MINI);
             tvExerciseTimer.setVisibility(View.VISIBLE);
-            reps = repNumber + " seconds";
+            tvExercise.setText(workoutPlan.get(index).getExerciseName());
         }
-        tvExercise.setText(workoutPlan.get(index).getExerciseName() + "\n" + reps);
+        if (LoginActivity.getCurrentWeeklyReport() != null) {
+            final MultiTransformation multiLeft = new MultiTransformation(
+                    new CenterCrop());
+            Glide.with(WorkoutActivity.this).load(exercise.getImageURL()).apply(bitmapTransform(multiLeft)).into(ivExercisePoster);
+        }
     }
 
     @Override
@@ -355,6 +391,10 @@ public class WorkoutActivity extends AppCompatActivity {
 
         public TimerType getType() {
             return type;
+        }
+
+        public void setMilliLeft(long value) {
+            milliLeft = value;
         }
     }
 }

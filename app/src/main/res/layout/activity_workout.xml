@@ -9,79 +9,112 @@
     <TextView
         android:id="@+id/tvExercise"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_below="@id/tvTimer"
-        android:layout_alignStart="@id/ivTimerIcon"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="100dp"
-        android:textSize="24sp"
-        tools:text="Sit Ups x10" />
-
-    <TextView
-        android:id="@+id/tvTimer"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@id/ivTimerIcon"
-        android:textSize="24sp"
-        tools:text="1:32 left" />
-
-    <ImageView
-        android:id="@+id/ivTimerIcon"
-        android:layout_width="77dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="100dp"
-        android:translationX="0dp"
-        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+        android:layout_below="@+id/ivExercisePoster"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textSize="36sp"
+        tools:text="Sit Ups x10" />
 
     <ImageView
         android:id="@+id/ivExercisePoster"
-        android:layout_width="236dp"
-        android:layout_height="229dp"
-        android:layout_below="@id/tvExercise"
-        android:layout_alignStart="@id/tvExercise"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="305dp"
+        android:layout_height="305dp"
+        android:layout_below="@id/timerLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvExerciseTimer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ivExercisePoster"
+        android:layout_height="35dp"
+        android:layout_below="@id/tvExercise"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textSize="24sp"
         android:visibility="invisible"
-        tools:text="40 seconds"
+        tools:text="for 40 seconds"
         tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tvExerciseTimer"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@id/tvExerciseTimer"
-        android:text="@string/next" />
 
     <ImageButton
         android:id="@+id/btnExerciseVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_toEndOf="@id/tvTimer"
-        app:srcCompat="@android:drawable/ic_menu_info_details" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:srcCompat="@mipmap/ic_video_guide_icon_round" />
 
     <com.varunest.sparkbutton.SparkButton
         android:id="@+id/btnPause"
         android:layout_width="58dp"
-        android:layout_height="51dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         app:sparkbutton_activeImage="@drawable/ic_stat_name"
         app:sparkbutton_iconSize="60dp"
         app:sparkbutton_inActiveImage="@drawable/ic_stat_pause"
         app:sparkbutton_primaryColor="@color/black"
         app:sparkbutton_secondaryColor="@color/purple_700" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/timerLayout">
+
+        <ImageView
+            android:id="@+id/ivTimerIcon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@mipmap/ic_timer_icon" />
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginVertical="10dp"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textSize="36sp"
+            tools:text="1:32 left" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/tvExercise"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/tvExercise"
+        app:srcCompat="@mipmap/ic_next_button_workout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSpotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#000000"
+        android:src="@mipmap/ic_spotify_button"
+        app:fabSize="normal" />
+
+    <ImageButton
+        android:id="@+id/btnCancel"
+        android:layout_width="56dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@mipmap/ic_cancel_workout_button" />
 </RelativeLayout>
