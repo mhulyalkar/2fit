@@ -115,7 +115,7 @@ public class WorkoutActivity extends AppCompatActivity {
         btnEndWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LoginActivity.getCurrentWeeklyReport() != null) {
+                if (LoginActivity.isUserOnline()) {
                     final WeeklyReport currentWeeklyReport = LoginActivity.getCurrentWeeklyReport();
                     final Date currentDate = new Date();
                     final Date lastDate = currentWeeklyReport.getLastWorkoutDate();
@@ -203,7 +203,7 @@ public class WorkoutActivity extends AppCompatActivity {
         btnExerciseVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LoginActivity.getCurrentWeeklyReport() != null) {
+                if (LoginActivity.isUserOnline()) {
                     final Intent i = new Intent(WorkoutActivity.this, GuideActivity.class);
                     i.putExtra("videoId", workoutPlan.get(index).getVideoId());
                     startActivity(i);
@@ -297,7 +297,7 @@ public class WorkoutActivity extends AppCompatActivity {
             tvExerciseTimer.setVisibility(View.VISIBLE);
             tvExercise.setText(workoutPlan.get(index).getExerciseName());
         }
-        if (LoginActivity.getCurrentWeeklyReport() != null) {
+        if (LoginActivity.isUserOnline()) {
             final MultiTransformation multiLeft = new MultiTransformation(
                     new CenterCrop());
             Glide.with(WorkoutActivity.this).load(exercise.getImageURL()).apply(bitmapTransform(multiLeft)).into(ivExercisePoster);
@@ -389,12 +389,12 @@ public class WorkoutActivity extends AppCompatActivity {
             return milliLeft;
         }
 
-        public TimerType getType() {
-            return type;
-        }
-
         public void setMilliLeft(long value) {
             milliLeft = value;
+        }
+
+        public TimerType getType() {
+            return type;
         }
     }
 }

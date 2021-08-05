@@ -25,7 +25,6 @@ import com.codepath.myapplication.R;
 import com.codepath.myapplication.databinding.ActivityMainBinding;
 import com.codepath.myapplication.ui.Tabs.SectionsPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.parse.ParseUser;
 import com.spotify.android.appremote.api.ConnectionParams;
@@ -49,6 +48,77 @@ public class MainActivity extends AppCompatActivity {
 
     public static SpotifyAppRemote getMSpotifyAppRemote() {
         return mSpotifyAppRemote;
+    }
+
+    public static void setCurrentTrack(Track currentTrack) {
+        MainActivity.currentTrack = currentTrack;
+    }
+
+    public static Track getCurrentTrack() {
+        return currentTrack;
+    }
+
+    public static void spotifyPopUp(Activity activity) {
+        final View promptView;
+        final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_spotify, null));
+        promptView = popupWindowAddTime.getContentView();
+        final int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        final int height = 500;
+        final boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(promptView, width, height, focusable);
+        popupWindow.setAnimationStyle(R.style.popup_window_animation);
+        popupWindow.showAtLocation(promptView, Gravity.CENTER, 0, 900);
+        final ImageButton ibSpotifySkipNext, ibSpotifySkipPrev;
+        final ImageView ivSpotifyLogo, ivSongImage;
+        final SparkButton btnSpotifyPause;
+        final TextView tvSpotifySongTitle, tvSpotifySinger;
+        tvSpotifySinger = promptView.findViewById(R.id.tvSpotifySinger);
+        tvSpotifySongTitle = promptView.findViewById(R.id.tvSpotifySongTitle);
+        ibSpotifySkipNext = promptView.findViewById(R.id.ibSpotifySkipNext);
+        ibSpotifySkipNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSpotifyAppRemote.getPlayerApi().skipNext();
+                getSpotifyTrack(activity, tvSpotifySinger, tvSpotifySongTitle);
+            }
+        });
+        ibSpotifySkipPrev = promptView.findViewById(R.id.ibSpotifySkipPrev);
+        ibSpotifySkipPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSpotifyAppRemote.getPlayerApi().skipPrevious();
+                getSpotifyTrack(activity, tvSpotifySinger, tvSpotifySongTitle);
+            }
+        });
+        ivSongImage = promptView.findViewById(R.id.ivSongImage);
+        ivSpotifyLogo = promptView.findViewById(R.id.ivSpotifyLogo);
+        btnSpotifyPause = promptView.findViewById(R.id.btnSpotifyPause);
+        if (isPaused) {
+            btnSpotifyPause.setActiveImage(R.mipmap.ic_spotify_play);
+            btnSpotifyPause.setInactiveImage(R.mipmap.ic_spotify_pause);
+        }
+        btnSpotifyPause.setEventListener(new SparkEventListener() {
+            @Override
+            public void onEvent(ImageView button, boolean buttonState) {
+                if (isPaused) {
+                    mSpotifyAppRemote.getPlayerApi().resume();
+                } else {
+                    mSpotifyAppRemote.getPlayerApi().pause();
+                }
+                isPaused = !isPaused;
+            }
+
+            @Override
+            public void onEventAnimationEnd(ImageView button, boolean buttonState) {
+            }
+
+            @Override
+            public void onEventAnimationStart(ImageView button, boolean buttonState) {
+            }
+        });
+        tvSpotifySinger.setText(currentTrack.artist.name);
+        tvSpotifySongTitle.setText(currentTrack.name);
     }
 
     @Override
@@ -81,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnLogout) {
-            if (LoginActivity.getCurrentWeeklyReport() != null) {
+            if (LoginActivity.isUserOnline()) {
                 mSpotifyAppRemote.getPlayerApi().pause();
             }
             final Intent i = new Intent(MainActivity.this, LoginActivity.class);
@@ -101,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         .setRedirectUri(REDIRECT_URI)
                         .showAuthView(true)
                         .build();
-        if (LoginActivity.getCurrentWeeklyReport() != null) {
+        if (LoginActivity.isUserOnline() & currentTrack == null) {
             SpotifyAppRemote.connect(this, connectionParams,
                     new Connector.ConnectionListener() {
 
@@ -127,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState -> {
-                    currentTrack = playerState.track;
+                    MainActivity.setCurrentTrack(playerState.track);
                     if (currentTrack != null) {
                         Toast.makeText(MainActivity.this, currentTrack.name + " by " + currentTrack.artist.name, Toast.LENGTH_SHORT).show();
                     } else {
@@ -137,74 +207,22 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public static void spotifyPopUp(Activity activity) {
-        final View promptView;
-        final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_spotify, null));
-        promptView = popupWindowAddTime.getContentView();
-        final int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        final int height = 500;
-        final boolean focusable = true;
-        final PopupWindow popupWindow = new PopupWindow(promptView, width, height, focusable);
-        popupWindow.setAnimationStyle(R.style.popup_window_animation);
-        popupWindow.showAtLocation(promptView, Gravity.CENTER, 0, 900);
-        final ImageButton ibSpotifySkipNext, ibSpotifySkipPrev;
-        final ImageView ivSpotifyLogo, ivSongImage;
-        final SparkButton btnSpotifyPause;
-        final TextView tvSpotifySongTitle, tvSpotifySinger;
-        tvSpotifySinger = promptView.findViewById(R.id.tvSpotifySinger);
-        tvSpotifySongTitle = promptView.findViewById(R.id.tvSpotifySongTitle);
-        ibSpotifySkipNext = promptView.findViewById(R.id.ibSpotifySkipNext);
-        ibSpotifySkipNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSpotifyAppRemote.getPlayerApi().skipNext();
-                tvSpotifySinger.setText(currentTrack.artist.name);
-                tvSpotifySongTitle.setText(currentTrack.name);
-            }
-        });
-        ibSpotifySkipPrev = promptView.findViewById(R.id.ibSpotifySkipPrev);
-        ibSpotifySkipPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSpotifyAppRemote.getPlayerApi().skipPrevious();
-                tvSpotifySinger.setText(currentTrack.artist.name);
-                tvSpotifySongTitle.setText(currentTrack.name);
-            }
-        });
-        ivSongImage = promptView.findViewById(R.id.ivSongImage);
-        ivSpotifyLogo = promptView.findViewById(R.id.ivSpotifyLogo);
-        btnSpotifyPause = promptView.findViewById(R.id.btnSpotifyPause);
-        btnSpotifyPause.setEventListener(new SparkEventListener() {
-            @Override
-            public void onEvent(ImageView button, boolean buttonState) {
-                if (isPaused) {
-                    mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
-                } else {
-                    mSpotifyAppRemote.getPlayerApi().pause();
-                }
-                isPaused = !isPaused;
-            }
-
-            @Override
-            public void onEventAnimationEnd(ImageView button, boolean buttonState) {
-            }
-
-            @Override
-            public void onEventAnimationStart(ImageView button, boolean buttonState) {
-            }
-        });
-        tvSpotifySinger.setText(currentTrack.artist.name);
-        tvSpotifySongTitle.setText(currentTrack.name);
-    }
-
-
     @Override
     protected void onStop() {
         super.onStop();
-        if (LoginActivity.getCurrentWeeklyReport() != null) {
-            mSpotifyAppRemote.getPlayerApi().pause();
-            SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-        }
+    }
+    public static void getSpotifyTrack(Activity activity,TextView artist, TextView songTitle) {
+        mSpotifyAppRemote.getPlayerApi()
+                .subscribeToPlayerState()
+                .setEventCallback(playerState -> {
+                    MainActivity.setCurrentTrack(playerState.track);
+                    if (currentTrack != null) {
+                        artist.setText(getCurrentTrack().artist.name);
+                        songTitle.setText(getCurrentTrack().name);
+                    } else {
+                        Log.e(TAG, "Couldn't find track");
+                        Toast.makeText(activity, "Couldn't find track", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

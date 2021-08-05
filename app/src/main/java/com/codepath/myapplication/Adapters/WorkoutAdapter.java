@@ -18,11 +18,11 @@ import com.codepath.myapplication.Activities.LoginActivity;
 import com.codepath.myapplication.ParseObjects.Workout;
 import com.codepath.myapplication.R;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -88,7 +88,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
                     return true;
                 }
             });
-            if (LoginActivity.getCurrentWeeklyReport() != null) {
+            if (LoginActivity.isUserOnline()) {
                 final MultiTransformation multiLeft = new MultiTransformation(
                         new CenterCrop(),
                         new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT));

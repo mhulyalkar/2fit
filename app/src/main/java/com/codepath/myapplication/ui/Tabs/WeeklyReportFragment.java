@@ -42,7 +42,7 @@ public class WeeklyReportFragment extends Fragment {
         tvDaysInARow = rootView.findViewById(R.id.tvDaysInARow);
         tvTimeSpent = rootView.findViewById(R.id.tvTimeSpent);
         tvWeeklyReportOffline = rootView.findViewById(R.id.tvWeeklyReportOffline);
-        if (LoginActivity.getCurrentWeeklyReport() != null) {
+        if (LoginActivity.isUserOnline()) {
             final WeeklyReport weeklyReport = (WeeklyReport) LoginActivity.getCurrentWeeklyReport();
             tvCalories.setText("Calories Burned: " + weeklyReport.getWeeklyCaloriesBurned());
             tvDaysInARow.setText("Days in a Row: " + weeklyReport.getDaysInARow());
@@ -54,7 +54,7 @@ public class WeeklyReportFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (LoginActivity.getCurrentWeeklyReport() != null) {
+                if (LoginActivity.isUserOnline()) {
                     refreshWeeklyReport();
                 } else {
                     Log.e(TAG, "Cannot refresh because user is not logged in");
@@ -73,6 +73,7 @@ public class WeeklyReportFragment extends Fragment {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting weekly report", e);
                     Toast.makeText(getActivity(), "Issue with getting weekly report", Toast.LENGTH_SHORT).show();
+                    swipeContainer.setRefreshing(false);
                     return;
                 }
                 weeklyReport.pinInBackground("weeklyReport");
@@ -103,7 +104,15 @@ public class WeeklyReportFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Successfully updated Weekly Report", Toast.LENGTH_SHORT).show();
                             }
                         });
+                    } else {
+                        tvCalories.setText("Calories Burned: " + weeklyReport.getWeeklyCaloriesBurned());
+                        tvDaysInARow.setText("Days in a Row: " + weeklyReport.getDaysInARow());
+                        tvTimeSpent.setText("Time spent: " + weeklyReport.getDuration());
+                        swipeContainer.setRefreshing(false);
+                        Toast.makeText(getActivity(), "Successfully updated Weekly Report", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    swipeContainer.setRefreshing(false);
                 }
                 Toast.makeText(getActivity(), "Successfully logged in", Toast.LENGTH_SHORT).show();
             }

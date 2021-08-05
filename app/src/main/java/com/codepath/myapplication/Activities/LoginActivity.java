@@ -69,11 +69,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static void removeCurrentWeeklyReport() {
-        LoginActivity.currentWeeklyReport = null;
+        currentWeeklyReport = null;
     }
 
     public static void removeCurrentUser() {
         currentUser = null;
+    }
+
+    public static boolean isUserOnline() {
+        return currentWeeklyReport != null;
     }
 
     @Override
@@ -111,51 +115,41 @@ public class LoginActivity extends AppCompatActivity {
         btnSkipLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (exercisesMap.isEmpty()) {
-                    final ParseQuery<Exercise> queryExercises = ParseQuery.getQuery(Exercise.class);
-                    queryExercises.fromLocalDatastore();
-                    queryExercises.findInBackground(new FindCallback<Exercise>() {
-                        public void done(List<Exercise> exercises,
-                                         ParseException e) {
-                            if (e != null) {
-                                Log.e(TAG, "Issue with getting exercises offline", e);
-                                Toast.makeText(LoginActivity.this, "Issue with getting exercises offline", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            for (int i = 0; i < exercises.size(); i++) {
-                                final Exercise currentExercise = exercises.get(i);
-                                exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
-                            }
-                            if (workoutList.size() == 0) {
-                                final ParseQuery<Workout> queryWorkouts = ParseQuery.getQuery(Workout.class);
-                                queryWorkouts.fromLocalDatastore();
-                                queryWorkouts.addAscendingOrder("difficulty");
-                                queryWorkouts.findInBackground(new FindCallback<Workout>() {
-                                    @Override
-                                    public void done(List<Workout> workouts, ParseException e) {
-                                        if (e != null) {
-                                            Log.e(TAG, "Issue with getting workouts offline", e);
-                                            Toast.makeText(LoginActivity.this, "Issue with getting workouts offline", Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-                                        workoutList.addAll(workouts);
-                                        final Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(i);
-                                        Animatoo.animateCard(LoginActivity.this);
-                                    }
-                                });
-                            } else {
+                exercisesMap.clear();
+                workoutList.clear();
+                final ParseQuery<Exercise> queryExercises = ParseQuery.getQuery(Exercise.class);
+                queryExercises.fromLocalDatastore();
+                queryExercises.findInBackground(new FindCallback<Exercise>() {
+                    public void done(List<Exercise> exercises,
+                                     ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issue with getting exercises offline", e);
+                            Toast.makeText(LoginActivity.this, "Issue with getting exercises offline", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        for (int i = 0; i < exercises.size(); i++) {
+                            final Exercise currentExercise = exercises.get(i);
+                            exercisesMap.put(currentExercise.getExerciseName(), currentExercise);
+                        }
+                        final ParseQuery<Workout> queryWorkouts = ParseQuery.getQuery(Workout.class);
+                        queryWorkouts.fromLocalDatastore();
+                        queryWorkouts.addAscendingOrder("difficulty");
+                        queryWorkouts.findInBackground(new FindCallback<Workout>() {
+                            @Override
+                            public void done(List<Workout> workouts, ParseException e) {
+                                if (e != null) {
+                                    Log.e(TAG, "Issue with getting workouts offline", e);
+                                    Toast.makeText(LoginActivity.this, "Issue with getting workouts offline", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                workoutList.addAll(workouts);
                                 final Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);
                                 Animatoo.animateCard(LoginActivity.this);
                             }
-                        }
-                    });
-                } else {
-                    final Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(i);
-                    Animatoo.animateCard(LoginActivity.this);
-                }
+                        });
+                    }
+                });
             }
         });
     }
