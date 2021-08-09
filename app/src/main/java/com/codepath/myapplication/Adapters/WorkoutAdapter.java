@@ -94,7 +94,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
                         new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT));
                 Glide.with(context).load(workout.getImageURL()).apply(bitmapTransform(multiLeft)).into(ivExerciseImage);
             } else {
-                etWorkoutItem.setTextColor(Color.BLACK);
                 etWorkoutItem.setBackgroundResource(R.drawable.custom_border);
             }
         }

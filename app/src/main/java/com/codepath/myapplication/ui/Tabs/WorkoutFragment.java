@@ -2,6 +2,7 @@ package com.codepath.myapplication.ui.Tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class WorkoutFragment extends Fragment {
         nAdapter = new WorkoutAdapter(allWorkouts, getActivity(), onClickListener);
         rvWorkouts.setAdapter(nAdapter);
         rvWorkouts.setLayoutManager(new LinearLayoutManager(getActivity()));
+        allWorkouts.clear();
         allWorkouts.addAll(LoginActivity.getWorkoutList());
         nAdapter.notifyDataSetChanged();
         return rootView;

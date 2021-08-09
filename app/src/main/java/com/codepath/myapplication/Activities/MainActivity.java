@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     public static Track getCurrentTrack() {
         return currentTrack;
     }
+    public static void setIsPaused(boolean bool) {
+        isPaused = bool;
+    }
 
     public static void spotifyPopUp(Activity activity) {
         final View promptView;
@@ -133,10 +136,15 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         final FloatingActionButton fab = binding.btnSpotify;
+        if (!LoginActivity.isUserOnline()) {
+            fab.setVisibility(View.INVISIBLE);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spotifyPopUp(MainActivity.this);
+                if (LoginActivity.isUserOnline()) {
+                    spotifyPopUp(MainActivity.this);
+                }
             }
         });
     }
@@ -153,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.btnLogout) {
             if (LoginActivity.isUserOnline()) {
                 mSpotifyAppRemote.getPlayerApi().pause();
+                isPaused = true;
             }
             final Intent i = new Intent(MainActivity.this, LoginActivity.class);
             LoginActivity.removeCurrentWeeklyReport();

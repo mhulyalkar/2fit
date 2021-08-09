@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F6F6"
     tools:context="com.codepath.myapplication.Activities.WorkoutActivity">
 
     <TextView
@@ -16,6 +17,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
         android:textSize="36sp"
+        android:textColor="@color/black"
         tools:text="Sit Ups x10" />
 
     <ImageView
@@ -37,6 +39,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:textSize="24sp"
         android:visibility="invisible"
+        android:textColor="@color/black"
         tools:text="for 40 seconds"
         tools:visibility="visible" />
 
@@ -81,6 +84,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-condensed-light"
+            android:textColor="@color/black"
             android:textSize="36sp"
             tools:text="1:32 left" />
     </LinearLayout>

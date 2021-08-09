@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="#F44336"
         android:text="@string/add_time"
         android:textSize="24sp" />
 

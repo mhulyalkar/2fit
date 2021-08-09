@@ -1,15 +1,12 @@
-<resources>
-    <string name="app_name">My Application</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">2Fit</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Weekly Report</string>
     <string name="tab_text_2">Workouts</string>
     <string name="title_activity_workout">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="weekly_report">WeeklyReport</string>
-    <string name="calories_burned_title">Calories Burned:</string>
-    <string name="days_in_a_row_title">Days in a row:</string>
-    <string name="time_spent_title">Time spent:</string>
+    <string name="weekly_report">Here is your </string>
     <string name="add_time">Add Time:</string>
     <string name="_1_minute">+ 1 minute</string>
     <string name="_2_minutes">+ 2 Minutes</string>
@@ -27,7 +24,7 @@
     <string name="gender">Gender</string>
     <string name="submit_changes">Submit Changes</string>
     <string name="skip_for_now">Skip for now</string>
-    <string name="workout">Workout:</string>
+    <string name="workout">Workout: </string>
     <string name="difficulty">Difficulty:</string>
     <string name="start">Start</string>
     <string name="skip_log_in">Skip Log In</string>
@@ -35,6 +32,8 @@
     <string name="go_back">Go Back</string>
     <string name="target_areas">Target Areas:</string>
     <string name="log_out">Logout</string>
+    <string name="weekly_report_bold">Weekly Report:</string>
+    <string name="calories_burned">Calories Burned</string>
     <string-array name="spgender_content">
         <item>Male</item>
         <item>Female</item>

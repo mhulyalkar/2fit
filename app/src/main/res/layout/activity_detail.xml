@@ -3,13 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bitmap_detail_page"
     tools:context="com.codepath.myapplication.Activities.DetailActivity">
+
+    <TextView
+        android:id="@+id/tvBorder"
+        android:layout_width="350dp"
+        android:layout_height="650dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_weekly_background"/>
 
     <TextView
         android:id="@+id/tvWorkoutName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvWorkoutTitle"
         android:layout_marginStart="0dp"
+        android:textColor="@color/black"
         android:layout_toEndOf="@id/tvWorkoutTitle"
         android:textSize="24sp"
         tools:text="Ab Workout" />
@@ -18,6 +28,10 @@
         android:id="@+id/tvWorkoutTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvBorder"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
         android:text="@string/workout"
         android:textSize="24sp" />
 
@@ -26,7 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvWorkoutTitle"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
+        android:textColor="@color/black"
         android:text="@string/difficulty"
         android:textSize="24sp" />
 
@@ -35,8 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvDifficultyTitle"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:theme="@style/RatingBar"
         android:layout_toEndOf="@id/tvDifficultyTitle"
         android:isIndicator="false" />
 
@@ -46,6 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDifficultyTitle"
         android:layout_marginTop="50dp"
+        android:layout_marginStart="40dp"
+        android:textColor="@color/black"
         android:text="@string/target_areas"
         android:textSize="24sp" />
 
@@ -55,16 +72,17 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvTargetAreasTitle"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:textColor="@color/black"
         android:layout_toEndOf="@id/tvTargetAreasTitle"
         android:textSize="24sp"
         tools:text="Core, Obliques" />
 
     <ImageView
         android:id="@+id/ivDetailPoster"
-        android:layout_width="match_parent"
-        android:layout_height="384dp"
+        android:layout_width="261dp"
+        android:layout_height="261dp"
         android:layout_below="@id/tvTargetAreasTitle"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         tools:srcCompat="@tools:sample/avatars" />
 

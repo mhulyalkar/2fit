@@ -164,6 +164,8 @@ public class LoginActivity extends AppCompatActivity {
                     btnSkipLogIn.setVisibility(View.VISIBLE);
                     return;
                 }
+                exercisesMap.clear();
+                workoutList.clear();
                 currentUser = user;
                 final ParseQuery<Workout> query = ParseQuery.getQuery(Workout.class);
                 query.addAscendingOrder("difficulty");
@@ -185,6 +187,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signUp(String username, String password) {
         final ParseUser user = new ParseUser();
+        exercisesMap.clear();
+        workoutList.clear();
         final WeeklyReport weeklyReport = new WeeklyReport();
         weeklyReport.setDuration(0);
         weeklyReport.setDaysInARow(0);

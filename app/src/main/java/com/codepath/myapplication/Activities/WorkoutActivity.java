@@ -19,8 +19,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.myapplication.ParseObjects.Exercise;
 import com.codepath.myapplication.ParseObjects.WeeklyReport;
 import com.codepath.myapplication.ParseObjects.Workout;
@@ -36,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.codepath.myapplication.Activities.MainActivity.spotifyPopUp;
 
 /**
@@ -196,7 +196,9 @@ public class WorkoutActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spotifyPopUp(WorkoutActivity.this);
+                if (LoginActivity.isUserOnline()) {
+                    spotifyPopUp(WorkoutActivity.this);
+                }
             }
         });
         btnExerciseVideo = findViewById(R.id.btnExerciseVideo);
@@ -204,6 +206,8 @@ public class WorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (LoginActivity.isUserOnline()) {
+                    timerPause();
+                    MainActivity.setIsPaused(true);
                     final Intent i = new Intent(WorkoutActivity.this, GuideActivity.class);
                     i.putExtra("videoId", workoutPlan.get(index).getVideoId());
                     startActivity(i);
@@ -259,12 +263,16 @@ public class WorkoutActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        if (!LoginActivity.isUserOnline()) {
+            btnExerciseVideo.setVisibility(View.INVISIBLE);
+            fab.setVisibility(View.INVISIBLE);
+        }
         tvTimer = findViewById(R.id.tvTimer);
         tvExercise = findViewById(R.id.tvExercise);
         tvExerciseTimer = findViewById(R.id.tvExerciseTimer);
         tvExercise.setText("" + workoutPlan.get(0));
         load();
-        timerStart(3 * 1000, TimerType.MAIN);
+        timerStart(120 * 1000, TimerType.MAIN);
         totalExerciseTimeInMinutes += 2;
     }
 
@@ -298,9 +306,7 @@ public class WorkoutActivity extends AppCompatActivity {
             tvExercise.setText(workoutPlan.get(index).getExerciseName());
         }
         if (LoginActivity.isUserOnline()) {
-            final MultiTransformation multiLeft = new MultiTransformation(
-                    new CenterCrop());
-            Glide.with(WorkoutActivity.this).load(exercise.getImageURL()).apply(bitmapTransform(multiLeft)).into(ivExercisePoster);
+            Glide.with(WorkoutActivity.this).load(exercise.getImageURL()).apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(30))).into(ivExercisePoster);
         }
     }
 
