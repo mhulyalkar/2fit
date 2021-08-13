@@ -24,8 +24,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".Activities.DetailActivity" />
         <activity android:name=".Activities.WorkoutActivity" />
-        <activity
-            android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

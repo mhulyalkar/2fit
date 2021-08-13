@@ -50,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
         return mSpotifyAppRemote;
     }
 
+    public static Track getCurrentTrack() {
+        return currentTrack;
+    }
+
     public static void setCurrentTrack(Track currentTrack) {
         MainActivity.currentTrack = currentTrack;
     }
 
-    public static Track getCurrentTrack() {
-        return currentTrack;
-    }
     public static void setIsPaused(boolean bool) {
         isPaused = bool;
     }
@@ -124,6 +125,21 @@ public class MainActivity extends AppCompatActivity {
         tvSpotifySongTitle.setText(currentTrack.name);
     }
 
+    public static void getSpotifyTrack(Activity activity, TextView artist, TextView songTitle) {
+        mSpotifyAppRemote.getPlayerApi()
+                .subscribeToPlayerState()
+                .setEventCallback(playerState -> {
+                    MainActivity.setCurrentTrack(playerState.track);
+                    if (currentTrack != null) {
+                        artist.setText(getCurrentTrack().artist.name);
+                        songTitle.setText(getCurrentTrack().name);
+                    } else {
+                        Log.e(TAG, "Couldn't find track");
+                        Toast.makeText(activity, "Couldn't find track", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +166,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        logOut();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -159,17 +181,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnLogout) {
-            if (LoginActivity.isUserOnline()) {
-                mSpotifyAppRemote.getPlayerApi().pause();
-                isPaused = true;
-            }
-            final Intent i = new Intent(MainActivity.this, LoginActivity.class);
-            LoginActivity.removeCurrentWeeklyReport();
-            LoginActivity.removeCurrentUser();
-            ParseUser.logOut();
-            startActivity(i);
+            logOut();
         }
         return true;
+    }
+
+    private void logOut() {
+        if (LoginActivity.isUserOnline()) {
+            mSpotifyAppRemote.getPlayerApi().pause();
+            isPaused = true;
+        }
+        final Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        LoginActivity.removeCurrentWeeklyReport();
+        LoginActivity.removeCurrentUser();
+        ParseUser.logOut();
+        startActivity(i);
     }
 
     @Override
@@ -190,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.i(TAG, "Connected to Spotify");
                             Toast.makeText(MainActivity.this, "Connected to Spotify", Toast.LENGTH_SHORT).show();
                             connected();
+
                         }
 
                         @Override
@@ -219,19 +246,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-    public static void getSpotifyTrack(Activity activity,TextView artist, TextView songTitle) {
-        mSpotifyAppRemote.getPlayerApi()
-                .subscribeToPlayerState()
-                .setEventCallback(playerState -> {
-                    MainActivity.setCurrentTrack(playerState.track);
-                    if (currentTrack != null) {
-                        artist.setText(getCurrentTrack().artist.name);
-                        songTitle.setText(getCurrentTrack().name);
-                    } else {
-                        Log.e(TAG, "Couldn't find track");
-                        Toast.makeText(activity, "Couldn't find track", Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 }

@@ -125,6 +125,7 @@ public class WeeklyReportFragment extends Fragment {
             swipeContainer.setRefreshing(false);
         }
     }
+
     private void setTextValues(WeeklyReport weeklyReport) {
         if (LoginActivity.isUserOnline()) {
             tvCalories.setText(weeklyReport.getWeeklyCaloriesBurned() + "");

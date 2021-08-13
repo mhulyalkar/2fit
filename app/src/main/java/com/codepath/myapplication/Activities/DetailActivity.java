@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         if (LoginActivity.isUserOnline()) {
             final MultiTransformation multiLeft = new MultiTransformation(
                     new CenterCrop());
-                    new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT);
+            new RoundedCornersTransformation(25, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT);
             Glide.with(DetailActivity.this).load(workout.getImageURL()).apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(30))).into(ivDetailPoster);
         }
         btnDetailStart.setOnClickListener(new View.OnClickListener() {

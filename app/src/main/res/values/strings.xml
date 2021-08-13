@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">2Fit</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Weekly Report</string>

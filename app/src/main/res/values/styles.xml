@@ -8,8 +8,7 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="MyActionBar" parent="Widget.AppCompat.ActionBar">
-    </style>
+    <style name="MyActionBar" parent="Widget.AppCompat.ActionBar"></style>
 
     <style name="Widget.Theme.MyApplication.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/black_overlay</item>
@@ -20,6 +19,7 @@
         <item name="android:windowEnterAnimation">@anim/popup_show</item>
         <item name="android:windowExitAnimation">@anim/popup_hide</item>
     </style>
+
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/light_blue_600</item>
         <item name="colorControlActivated">@color/black</item>

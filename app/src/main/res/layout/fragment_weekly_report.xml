@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
-    android:background="@drawable/bitmap_weekly_report"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bitmap_weekly_report">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="350dp"
             android:layout_height="650dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/shape_weekly_background"/>
+            android:background="@drawable/shape_weekly_background" />
 
         <TextView
             android:id="@+id/tvTimeSpentShape"
@@ -55,8 +55,8 @@
             android:layout_below="@id/tvUserGreeting"
             android:layout_alignStart="@+id/tvBorder"
             android:layout_marginStart="20dp"
-            android:textColor="@color/black"
             android:text="@string/weekly_report"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:visibility="visible" />
 
@@ -106,10 +106,10 @@
             android:layout_alignStart="@id/tvBorder"
             android:layout_marginStart="10dp"
             android:layout_marginTop="300dp"
-            android:textColor="@color/black"
             android:gravity="center"
-            android:textSize="24sp"
             android:text="@string/weekly_report_offline"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -131,9 +131,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/tvWeeklyReportTitle"
             android:layout_marginStart="5dp"
-            android:textColor="@color/black"
             android:layout_toEndOf="@id/tvWeeklyReportTitle"
             android:text="@string/weekly_report_bold"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 

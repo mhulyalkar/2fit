@@ -16,8 +16,8 @@
         android:layout_marginTop="60dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
-        android:textSize="36sp"
         android:textColor="@color/black"
+        android:textSize="36sp"
         tools:text="Sit Ups x10" />
 
     <ImageView
@@ -37,9 +37,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
         android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:visibility="invisible"
-        android:textColor="@color/black"
         tools:text="for 40 seconds"
         tools:visibility="visible" />
 

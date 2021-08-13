@@ -61,6 +61,17 @@ public class WorkoutActivity extends AppCompatActivity {
     private int index;
     private int totalExerciseTimeInMinutes = 0;
 
+    private CountDownTimer btnNextTimer = new CountDownTimer(3000, 3000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+        }
+
+        @Override
+        public void onFinish() {
+            btnNext.setVisibility(View.VISIBLE);
+        }
+    };
+
     private void timerStart(long timeLengthMilli, TimerType type) {
         if (type == TimerType.MAIN) {
             mainTimer = new CustomCountDownTimer(timeLengthMilli, 1000, type);
@@ -90,6 +101,10 @@ public class WorkoutActivity extends AppCompatActivity {
 
     private void addTimePrompt() {
         //Popup window with buttons to reset the timer
+        if (btnNextTimer != null) {
+            btnNextTimer.onFinish();
+        }
+        btnNext.setVisibility(View.INVISIBLE);
         final View promptView;
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final PopupWindow popupWindowAddTime = new PopupWindow(inflater.inflate(R.layout.popup_add_time, null));
@@ -243,7 +258,12 @@ public class WorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 index++;
-                if (exerciseTimer != null && exerciseTimer.getMilliLeft() > 0) {
+                btnNext.setVisibility(View.INVISIBLE);
+                btnNextTimer.start();
+                //removes previous exercise timer
+                if (exerciseTimer != null) {
+                    exerciseTimer.setMilliLeft(0);
+                    exerciseTimer.cancel();
                     exerciseTimer.onFinish();
                 }
                 load();
@@ -253,14 +273,7 @@ public class WorkoutActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (exerciseTimer != null) {
-                    exerciseTimer.cancel();
-                    exerciseTimer.setMilliLeft(0);
-                }
-                mainTimer.cancel();
-                mainTimer.setMilliLeft(0);
-                final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
-                startActivity(i);
+                cancelWorkout();
             }
         });
         if (!LoginActivity.isUserOnline()) {
@@ -274,6 +287,26 @@ public class WorkoutActivity extends AppCompatActivity {
         load();
         timerStart(120 * 1000, TimerType.MAIN);
         totalExerciseTimeInMinutes += 2;
+    }
+
+    @Override
+    public void onBackPressed() {
+        cancelWorkout();
+    }
+
+    private void cancelWorkout() {
+        if (exerciseTimer != null) {
+            exerciseTimer.cancel();
+            exerciseTimer.setMilliLeft(0);
+            exerciseTimer.onFinish();
+        }
+        if (btnNextTimer != null) {
+            btnNextTimer.cancel();
+        }
+        mainTimer.cancel();
+        mainTimer.setMilliLeft(0);
+        final Intent i = new Intent(WorkoutActivity.this, MainActivity.class);
+        startActivity(i);
     }
 
     private void load() {
@@ -301,6 +334,12 @@ public class WorkoutActivity extends AppCompatActivity {
             reps = "x" + repNumber + " Repetitions";
             tvExercise.setText(workoutPlan.get(index).getExerciseName() + "\n" + reps);
         } else {
+            //removes previous exercise timer
+            if (exerciseTimer != null) {
+                exerciseTimer.setMilliLeft(0);
+                exerciseTimer.cancel();
+                exerciseTimer.onFinish();
+            }
             timerStart(repNumber * 1000, TimerType.MINI);
             tvExerciseTimer.setVisibility(View.VISIBLE);
             tvExercise.setText(workoutPlan.get(index).getExerciseName());
@@ -333,6 +372,7 @@ public class WorkoutActivity extends AppCompatActivity {
         public void onClick(View v) {
             timerStart(min * 60000, TimerType.MAIN);
             totalExerciseTimeInMinutes += min;
+            btnNext.setVisibility(View.VISIBLE);
             popupWindow.dismiss();
         }
     }
@@ -380,8 +420,12 @@ public class WorkoutActivity extends AppCompatActivity {
             //Finishes exercise timer if main timer runs out
             if (type == TimerType.MAIN) {
                 tvTimer.setText("0:00");
-                if (exerciseTimer != null && exerciseTimer.getMilliLeft() > 0) {
-                    exerciseTimer.onFinish();
+                //removes previous exercise timer
+                if (exerciseTimer != null) {
+                    exerciseTimer.setMilliLeft(0);
+                    exerciseTimer.cancel();
+                    tvExerciseTimer.setVisibility(View.INVISIBLE);
+                    tvExerciseTimer.setText("0:00");
                 }
                 addTimePrompt();
             }
